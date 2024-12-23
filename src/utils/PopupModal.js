@@ -7,7 +7,7 @@ const PopupModal = ({ isOpen, title, message, onClose, onGoToDetails }) => {
   return (
     <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50">
       <div className="bg-white p-6 rounded shadow-lg w-96">
-        <h2 className="text-lg font-semibold mb-2">{title}</h2>
+        <h2 className="text-lg font-semibold mb-2 text-customBlue">{title}</h2>
         <p className="text-sm text-gray-700 mb-4">{message}</p>
         <div className="flex justify-end space-x-2">
           <button 
@@ -18,7 +18,7 @@ const PopupModal = ({ isOpen, title, message, onClose, onGoToDetails }) => {
           </button>
           {onGoToDetails && (
             <button 
-              className="px-4 py-2 bg-blue-500 text-white rounded hover:bg-blue-600"
+              className="px-4 py-2 bg-customSeaGreen text-white rounded hover:bg-customBlue"
               onClick={onGoToDetails}
             >
               Go to Details

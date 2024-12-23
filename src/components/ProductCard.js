@@ -1,6 +1,6 @@
 import React, { useContext, useState } from "react";
 import PropTypes from "prop-types";
-import { Link } from "react-router-dom";
+import { Link, NavLink, useNavigate } from "react-router-dom";
 import { hasRequiredSelections } from "../utils/hasRequiredSelection";
 import PopupModal from "../utils/PopupModal";
 import { CartContext } from "../utils/CartContext";
@@ -34,23 +34,23 @@ const ProductCard = ({ product }) => {
   return (
     <div className="product-card p-4">
       {/* Image Section */}
-      <div className="relative h-40 flex items-center justify-center">
-        <img
-          src={product.imageURL}
-          alt={product.name}
-          className="max-h-full w-auto object-contain"
-        />
+        <NavLink className="relative h-40 flex items-center justify-center" to={`/product/${product.id}`}>
+          <img
+            src={product.imageURL}
+            alt={product.name}
+            className="max-h-full w-auto object-contain"
+          />
         {product.isOnSale && (
           <span className="absolute top-2 left-2 bg-red-500 text-white text-xs font-bold px-2 py-1 rounded">
             Sale
           </span>
         )}
-      </div>
+        </NavLink>
 
       {/* Product Details */}
       <div className="mt-4 text-center">
         <h2
-          className="text-sm font-semibold text-gray-800 truncate"
+          className="text-sm font-semibold text-customBlue truncate"
           title={product.name}
         >
           {product.name}

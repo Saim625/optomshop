@@ -4,60 +4,68 @@ import ProductCard from "./ProductCard";
 
 const CategoryRow = ({ categoryName, products }) => {
   const [currentIndex, setCurrentIndex] = useState(0);
-  const [isMobile, setIsMobile] = useState(window.innerWidth < 640); // Detect mobile
+  const [productsPerPage, setProductsPerPage] = useState(4);
+  const [visibleDots, setVisibleDots] = useState([]);
   const containerRef = useRef(null);
 
-  const productsPerPage = 4; // Number of products visible at a time (desktop)
-  const desktopTotalPages = Math.ceil(products.length / productsPerPage);
-  const mobileTotalPages = products.length;
-
-  const totalPages = isMobile ? mobileTotalPages : desktopTotalPages; // Dynamic dots
-  const productWidth = 300; // Width of a single product card (adjust to match styles)
-
-  const handleResize = () => {
-    setIsMobile(window.innerWidth < 640); // Update mobile state on window resize
+  const calculateProductsPerPage = () => {
+    const screenWidth = window.innerWidth;
+    if (screenWidth >= 1280) return 4;
+    if (screenWidth >= 1024) return 3;
+    if (screenWidth >= 768) return 2;
+    return 1;
   };
 
   useEffect(() => {
-    window.addEventListener("resize", handleResize);
-    return () => window.removeEventListener("resize", handleResize);
+    const updateProductsPerPage = () => setProductsPerPage(calculateProductsPerPage());
+    updateProductsPerPage();
+    window.addEventListener("resize", updateProductsPerPage);
+    return () => window.removeEventListener("resize", updateProductsPerPage);
   }, []);
 
+  const totalPages = Math.ceil(products.length / productsPerPage);
+
+  const updateVisibleDots = (newIndex) => {
+    const maxVisibleDots = 6;
+    const start = Math.floor(newIndex / maxVisibleDots) * maxVisibleDots;
+    const end = Math.min(start + maxVisibleDots, totalPages);
+    setVisibleDots([...Array(end - start).keys()].map((i) => i + start));
+  };
+
+  useEffect(() => {
+    updateVisibleDots(currentIndex);
+  }, [currentIndex, totalPages]);
+
   const handleNext = () => {
-    if (!isMobile && currentIndex < desktopTotalPages - 1) {
-      setCurrentIndex(currentIndex + 1); // Desktop: Scroll by pages
-    } else if (isMobile && currentIndex < products.length - 1) {
-      setCurrentIndex(currentIndex + 1); // Mobile: Scroll by individual products
+    if (currentIndex < totalPages - 1) {
+      const newIndex = currentIndex + 1;
+      setCurrentIndex(newIndex);
     }
   };
 
   const handlePrev = () => {
-    if (!isMobile && currentIndex > 0) {
-      setCurrentIndex(currentIndex - 1); // Desktop: Scroll by pages
-    } else if (isMobile && currentIndex > 0) {
-      setCurrentIndex(currentIndex - 1); // Mobile: Scroll by individual products
+    if (currentIndex > 0) {
+      const newIndex = currentIndex - 1;
+      setCurrentIndex(newIndex);
     }
   };
 
   useEffect(() => {
     const container = containerRef.current;
     if (container) {
-      const scrollOffset = isMobile
-        ? currentIndex * productWidth // Mobile: scroll by individual product width
-        : currentIndex * container.offsetWidth; // Desktop: scroll by page width
+      const scrollOffset = currentIndex * container.offsetWidth;
       container.scrollTo({
         left: scrollOffset,
         behavior: "smooth",
       });
     }
-  }, [currentIndex, isMobile]);
+  }, [currentIndex]);
 
-  // Listen to scroll events for syncing dots on mobile
   const handleScroll = () => {
     const container = containerRef.current;
-    if (!container || !isMobile) return;
+    if (!container) return;
 
-    const newIndex = Math.round(container.scrollLeft / productWidth);
+    const newIndex = Math.round(container.scrollLeft / container.offsetWidth);
     if (newIndex !== currentIndex) {
       setCurrentIndex(newIndex);
     }
@@ -68,37 +76,29 @@ const CategoryRow = ({ categoryName, products }) => {
     if (container) {
       container.addEventListener("scroll", handleScroll);
     }
-
     return () => {
       if (container) {
         container.removeEventListener("scroll", handleScroll);
       }
     };
-  }, [currentIndex, isMobile]);
-
-  const scrollToPage = (index) => {
-    setCurrentIndex(index);
-  };
+  }, [currentIndex]);
 
   return (
     <div className="text-center mb-12">
-      {/* Category Name */}
       <h2 className="my-10 font-bold text-3xl text-customBlue">{categoryName}</h2>
 
-      {/* Product Row Container */}
       <div className="relative bg-gray-100 py-6 px-6 rounded-lg shadow-lg">
-        {/* Arrows */}
         {products.length > productsPerPage && (
           <>
             <button
-              className="absolute left-2 top-1/2 transform -translate-y-1/2 bg-customSeaGreen text-white opacity-90 hover:opacity-100 rounded-full p-3 shadow-md hover:scale-110 transition duration-300 hidden sm:block"
+              className="absolute left-2 top-1/2 transform -translate-y-1/2 bg-customSeaGreen text-white opacity-90 hover:opacity-100 rounded-full p-3 shadow-md hover:scale-110 transition duration-300 hidden lg:block"
               onClick={handlePrev}
               style={{ zIndex: 10 }}
             >
               &lt;
             </button>
             <button
-              className="absolute right-2 top-1/2 transform -translate-y-1/2 bg-customSeaGreen text-white opacity-90 hover:opacity-100 rounded-full p-3 shadow-md hover:scale-110 transition duration-300 hidden sm:block"
+              className="absolute right-2 top-1/2 transform -translate-y-1/2 bg-customSeaGreen text-white opacity-90 hover:opacity-100 rounded-full p-3 shadow-md hover:scale-110 transition duration-300 hidden lg:block"
               onClick={handleNext}
               style={{ zIndex: 10 }}
             >
@@ -107,24 +107,19 @@ const CategoryRow = ({ categoryName, products }) => {
           </>
         )}
 
-        {/* Product Cards */}
         <div
           ref={containerRef}
           className={`flex overflow-x-scroll scroll-smooth ${
-            products.length < 4 ? "justify-start sm:justify-center" : ""
+            products.length < productsPerPage ? "justify-center" : ""
           } no-scrollbar`}
         >
           {products.map((product) => (
             <div
               key={product.id}
-              className={`flex-shrink-0 ${
-                products.length <= 2
-                  ? "w-full sm:w-1/3"
-                  : products.length === 3
-                  ? "w-full sm:w-1/4"
-                  : "w-full sm:w-1/4"
-              }`}
-              style={{ width: productWidth }}
+              className="flex-shrink-0"
+              style={{
+                width: `calc(100% / ${productsPerPage})`,
+              }}
             >
               <ProductCard product={product} />
             </div>
@@ -132,21 +127,17 @@ const CategoryRow = ({ categoryName, products }) => {
         </div>
       </div>
 
-      {/* Dots */}
-      <div className="mt-4 flex justify-center items-center space-x-2 sm:hidden">
-        {Array(totalPages)
-          .fill(null)
-          .map((_, index) => (
-            <span
-              key={index}
-              onClick={() => scrollToPage(index)}
-              className={`h-2 w-2 rounded-full cursor-pointer ${
-                currentIndex === index
-                  ? "bg-customSeaGreen"
-                  : "bg-gray-400"
-              } transition-colors duration-300`}
-            ></span>
-          ))}
+      {/* Dynamic Dots */}
+      <div className="mt-4 flex justify-center items-center space-x-2 lg:hidden">
+        {visibleDots.map((dot) => (
+          <span
+            key={dot}
+            onClick={() => setCurrentIndex(dot)}
+            className={`h-2 w-2 rounded-full cursor-pointer ${
+              currentIndex === dot ? "bg-customSeaGreen" : "bg-gray-400"
+            } transition-colors duration-300`}
+          ></span>
+        ))}
       </div>
     </div>
   );

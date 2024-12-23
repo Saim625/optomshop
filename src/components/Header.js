@@ -1,8 +1,9 @@
 import React, { useContext, useEffect, useRef, useState } from "react";
-import { NavLink, useNavigate } from "react-router-dom";
+import { NavLink, useLocation, useNavigate } from "react-router-dom";
 import { CartContext } from "../utils/CartContext";
 import { FiChevronDown } from "react-icons/fi";
 import { PRODUCTS } from "../utils/productdata";
+import { FaLessThanEqual } from "react-icons/fa";
 
 const Header = () => {
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
@@ -11,21 +12,40 @@ const Header = () => {
   const [isSearchVisible, setIsSearchVisible] = useState(false);
   const [searchQuery, setSearchQuery] = useState("");
   const [suggestions, setSuggestions] = useState([]);
+
   const navigate = useNavigate();
+  const location = useLocation();
+
+
   const allProducts = Object.values(PRODUCTS).flat();
   const { cartItemCount } = useContext(CartContext);
 
   const searchRef = useRef(null);
-  const categoryRef = useRef(null);
 
-  const handleScrollToCategory = (categoryId) => {
-    const targetElement = document.getElementById(categoryId.toLowerCase());
-    if (targetElement) {
-      targetElement.scrollIntoView({ behavior: "smooth" });
-        setIsCategoryDropdownOpen(false); // Close dropdown after scrolling
-        setIsMobileMenuOpen(false); // Close the mobile menu (if applicable)
+  const scrollToCategory = (categoryId) => {
+    if (location.pathname !== "/") {
+      // Navigate to the homepage with scrollTo state
+      navigate("/", { state: { scrollTo: categoryId } });
+      setIsMobileMenuOpen(false)
+    } else {
+      // If already on the homepage, trigger scrolling
+      const targetElement = document.getElementById(categoryId.toLowerCase());
+      if (targetElement) {
+        const headerHeight = window.innerWidth <= 768 ? 400 : 74;
+        const elementPosition = targetElement.getBoundingClientRect().top + window.scrollY;
+        const offsetPosition = elementPosition - headerHeight;
+
+        window.scrollTo({
+          top: offsetPosition,
+          behavior: "smooth",
+        });
+      }
+      setIsCategoryDropdownOpen(false); // Close dropdown after scrolling
+      setIsMobileMenuOpen(false); // Close the mobile menu (if applicable)
     }
   };
+  
+  
 
   // Search Logic
   const handleSearchChange = (e) => {
@@ -41,7 +61,7 @@ const Header = () => {
     }
   };
 
-  // Close search and dropdown on outside click
+  // Close search on outside click
   useEffect(() => {
     const handleClickOutside = (event) => {
       if (searchRef.current && !searchRef.current.contains(event.target)) {
@@ -49,13 +69,22 @@ const Header = () => {
         setSearchQuery("");
         setSuggestions([]);
       }
-      if (categoryRef.current && !categoryRef.current.contains(event.target)) {
-        setIsMobileCategoryDropdownOpen(false);
-      }
     };
     document.addEventListener("mousedown", handleClickOutside);
     return () => {
       document.removeEventListener("mousedown", handleClickOutside);
+    };
+  }, []);
+
+  useEffect(() => {
+    const handleDropdownClickOutside = () => {
+      setIsMobileCategoryDropdownOpen(false); // Close dropdown
+    };
+
+    document.addEventListener("click", handleDropdownClickOutside);
+
+    return () => {
+      document.removeEventListener("click", handleDropdownClickOutside);
     };
   }, []);
 
@@ -77,51 +106,56 @@ const Header = () => {
             Contact Us
           </NavLink>
           <div
-  className="relative group"
-  onMouseEnter={() => setIsCategoryDropdownOpen(true)}
-  onMouseLeave={() => setIsCategoryDropdownOpen(false)}
->
-  <button className="text-customBlue font-medium flex items-center">
-    Categories
-    <FiChevronDown className="ml-1 text-lg" />
-  </button>
-  {isCategoryDropdownOpen && (
-    <div className="absolute top-full mt-0 left-0 text-customBlue bg-white border shadow-lg rounded-lg w-56">
-      {/* Scroll Logic for Category Links */}
-      <button
-        className="block px-4 py-2 hover:bg-gray-100 w-full text-left"
-        onClick={() => handleScrollToCategory("laboratory-products")}>
-        Laboratory Products
-      </button>
-      <button
-        className="block px-4 py-2 hover:bg-gray-100 w-full text-left"
-        onClick={() => handleScrollToCategory("refraction-products")}
-      >
-        Refraction Products
-      </button>
-      <button
-        className="block px-4 py-2 hover:bg-gray-100 w-full text-left"
-        onClick={() => handleScrollToCategory("test-room-products")}
-      >
-        Test Room Products
-      </button>
-      <button
-        className="block px-4 py-2 hover:bg-gray-100 w-full text-left"
-        onClick={() => handleScrollToCategory("miscellaneous-products")}
-      >
-        Miscellaneous Products
-      </button>
-    </div>
-  )}
-</div>
-
+            className="relative group"
+            onMouseEnter={() => setIsCategoryDropdownOpen(true)}
+            onMouseLeave={() => setIsCategoryDropdownOpen(false)}
+          >
+            <button className="text-customBlue font-medium flex items-center">
+              Categories
+              <FiChevronDown className="ml-1 text-lg" />
+            </button>
+            {isCategoryDropdownOpen && (
+              <div className="absolute top-full mt-0 left-0 text-customBlue bg-white border shadow-lg rounded-lg w-56">
+                {/* Scroll Logic for Category Links */}
+                <button
+                  className="block px-4 py-2 hover:bg-gray-100 w-full text-left"
+                  onClick={() => scrollToCategory("laboratory-products")}
+                >
+                  Laboratory Products
+                </button>
+                <button
+                  className="block px-4 py-2 hover:bg-gray-100 w-full text-left"
+                  onClick={() => scrollToCategory("refraction-products")}
+                >
+                  Refraction Products
+                </button>
+                <button
+                  className="block px-4 py-2 hover:bg-gray-100 w-full text-left"
+                  onClick={() => scrollToCategory("test-room-products")}
+                >
+                  Test Room Products
+                </button>
+                <button
+                  className="block px-4 py-2 hover:bg-gray-100 w-full text-left"
+                  onClick={() =>
+                    scrollToCategory("miscellaneous-products")
+                  }
+                >
+                  Miscellaneous Products
+                </button>
+              </div>
+            )}
+          </div>
         </nav>
 
         {/* Right Icons */}
         <div className="flex items-center space-x-6">
           {/* Search Icon */}
           <div ref={searchRef} className="relative flex">
-            <button onClick={() => setIsSearchVisible((prev) => !prev)} className="text-customBlue">
+            <button
+              onClick={() => setIsSearchVisible((prev) => !prev)}
+              className="text-customBlue"
+            >
               <img
                 src="/images/search_icon.png"
                 alt="Search"
@@ -135,17 +169,22 @@ const Header = () => {
                   placeholder="Search for products..."
                   value={searchQuery}
                   onChange={handleSearchChange}
-                  className="absolute top-10 right-0 bg-white border border-gray-300 rounded-md p-2 shadow-md w-56 sm:w-72"
+                  className="absolute top-10 right-0 text-customBlue bg-white border border-gray-300 rounded-md p-2 shadow-md w-44 xs:w-56 sm:w-72"
                 />
                 {searchQuery && (
-                  <div className="absolute top-20 right-0 bg-white border border-gray-300 rounded-md shadow-md mt-1 w-56 sm:w-72 max-h-56 overflow-auto">
+                  <div className="absolute top-20 right-0 text-customBlue bg-white border border-gray-300 rounded-md shadow-md mt-1   w-44 xs:w-56 sm:w-72 max-h-56 overflow-auto">
                     {suggestions.length > 0 ? (
                       <ul>
                         {suggestions.map((product) => (
                           <li
                             key={product.id}
                             className="p-2 hover:bg-gray-100 cursor-pointer"
-                            onClick={() => navigate(`/product/${product.id}`)}
+                            onClick={() => {
+                              navigate(`/product/${product.id}`);
+                              setIsSearchVisible(false); // Hide search bar
+                              setSearchQuery(""); // Clear search input
+                              setSuggestions([]); // Clear suggestions
+                            }}
                           >
                             {product.name}
                           </li>
@@ -187,36 +226,49 @@ const Header = () => {
         }`}
       >
         <nav className="bg-white shadow-md">
-          <ul className="space-y-4 py-4 px-6">
-            <li>
+          <ul className="space-y-4 py-4 px-6 text-customBlue">
+            <li className="font-semibold">
               <NavLink to="/" onClick={() => setIsMobileMenuOpen(false)}>
                 Home
               </NavLink>
             </li>
-            <li>
+            <li className="font-semibold">
               <NavLink to="/about" onClick={() => setIsMobileMenuOpen(false)}>
                 About Us
               </NavLink>
             </li>
-            <li>
+            <li className="font-semibold">
               <NavLink to="/contact" onClick={() => setIsMobileMenuOpen(false)}>
                 Contact Us
               </NavLink>
             </li>
-            <li className="relative group">
+            {/* Mobile Category Dropdown */}
+            <li>
               <button
-                className="flex items-center w-full text-left"
-                onClick={() =>
-                  setIsMobileCategoryDropdownOpen((prev) => !prev)
-                }
+                className="flex items-center w-full text-left font-semibold"
+                onClick={(e) => {
+                  e.stopPropagation(); // Prevent the event from propagating
+                  setIsMobileCategoryDropdownOpen((prev) => !prev); // Toggle dropdown state
+                }}
               >
-                Categories <FiChevronDown className="ml-1 text-lg" />
+                Categories
+                <FiChevronDown
+                  className={`ml-1 text-lg transform transition-transform ${
+                    isMobileCategoryDropdownOpen ? "rotate-180" : ""
+                  }`}
+                />
               </button>
               {isMobileCategoryDropdownOpen && (
-                <ul className="pl-4 space-y-2" ref={categoryRef}>
+                <ul
+                  className="pl-4 space-y-2 "
+                  onClick={(e) => e.stopPropagation()} // Prevent dropdown click from closing
+                >
                   <li>
                     <button
-                      onClick={() => handleScrollToCategory("laboratory-products")}
+                      onClick={() => {
+                        scrollToCategory("laboratory-products");
+                        setIsMobileCategoryDropdownOpen(false); // Close dropdown
+                      }}
                       className="text-left w-full hover:bg-gray-100 px-2 py-1"
                     >
                       Laboratory Products
@@ -224,7 +276,10 @@ const Header = () => {
                   </li>
                   <li>
                     <button
-                      onClick={() => handleScrollToCategory("refraction-products")}
+                      onClick={() => {
+                        scrollToCategory("refraction-products");
+                        setIsMobileCategoryDropdownOpen(false); // Close dropdown
+                      }}
                       className="text-left w-full hover:bg-gray-100 px-2 py-1"
                     >
                       Refraction Products
@@ -232,7 +287,10 @@ const Header = () => {
                   </li>
                   <li>
                     <button
-                      onClick={() => handleScrollToCategory("test-room-products")}
+                      onClick={() => {
+                        scrollToCategory("test-room-products");
+                        setIsMobileCategoryDropdownOpen(false); // Close dropdown
+                      }}
                       className="text-left w-full hover:bg-gray-100 px-2 py-1"
                     >
                       Test Room Products
@@ -240,7 +298,10 @@ const Header = () => {
                   </li>
                   <li>
                     <button
-                      onClick={() => handleScrollToCategory("miscellaneous-products")}
+                      onClick={() => {
+                        scrollToCategory("miscellaneous-products");
+                        setIsMobileCategoryDropdownOpen(false); // Close dropdown
+                      }}
                       className="text-left w-full hover:bg-gray-100 px-2 py-1"
                     >
                       Miscellaneous Products
