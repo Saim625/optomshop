@@ -8,7 +8,17 @@ module.exports = {
       colors: {
         customBlue: 'rgb(0, 35, 69)',
         customSeaGreen: 'rgb(82, 203, 203);'
-      }
+      },
+      animation: {
+        'fade-out': 'fadeOut 5s ease-out forwards',
+      },
+      keyframes: {
+        fadeOut: {
+          '0%': { opacity: 1 },
+          '80%': { opacity: 1 },
+          '100%': { opacity: 0 },
+        },
+      },
     },
   },
   plugins: [

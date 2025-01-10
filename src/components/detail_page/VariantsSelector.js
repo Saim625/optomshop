@@ -9,7 +9,7 @@ const VariantsSelector = ({ variants }) => {
 
   return (
     <div>
-      <h3 className="text-lg font-semibold text-gray-800">Variants</h3>
+      <h3 className="text-lg font-semibold text-customBlue">Variants</h3>
       <div className="flex space-x-4 mt-2">
         {variants.map((variant) => (
           <button
@@ -21,7 +21,7 @@ const VariantsSelector = ({ variants }) => {
             }`}
             onClick={() => handleVariantChange(variant)}
           >
-            {variant.name} - {variant.price}
+            {variant.name} - £{variant.price}
           </button>
         ))}
       </div>

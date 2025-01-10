@@ -1,6 +1,6 @@
 import React, { useContext, useState } from "react";
 import PropTypes from "prop-types";
-import { Link, NavLink, useNavigate } from "react-router-dom";
+import { Link, NavLink } from "react-router-dom";
 import { hasRequiredSelections } from "../utils/hasRequiredSelection";
 import PopupModal from "../utils/PopupModal";
 import { CartContext } from "../utils/CartContext";
@@ -34,18 +34,21 @@ const ProductCard = ({ product }) => {
   return (
     <div className="product-card p-4">
       {/* Image Section */}
-        <NavLink className="relative h-40 flex items-center justify-center" to={`/product/${product.id}`}>
-          <img
-            src={product.imageURL}
-            alt={product.name}
-            className="max-h-full w-auto object-contain"
-          />
+      <NavLink
+        className="relative h-40 flex items-center justify-center"
+        to={`/product/${product.id}`}
+      >
+        <img
+          src={product.imageURL}
+          alt={product.name}
+          className="max-h-full w-auto object-contain"
+        />
         {product.isOnSale && (
           <span className="absolute top-2 left-2 bg-red-500 text-white text-xs font-bold px-2 py-1 rounded">
             Sale
           </span>
         )}
-        </NavLink>
+      </NavLink>
 
       {/* Product Details */}
       <div className="mt-4 text-center">
@@ -87,8 +90,16 @@ const ProductCard = ({ product }) => {
       {isModalOpen && (
         <PopupModal
           isOpen={isModalOpen}
-          title="Selection Required"
-          message="Please make the required selections before adding this product to the cart."
+          title={
+            product.specialOrder
+              ? "Special Order Required"
+              : "Additional Selections Required"
+          }
+          message={
+            product.specialOrder
+              ? "This product requires special instructions. Please review the details and download the order form."
+              : "Please make the required selections before adding this product to the cart."
+          }
           onClose={handleCloseModal}
           onGoToDetails={handleGoToDetails}
         />

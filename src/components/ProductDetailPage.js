@@ -8,7 +8,7 @@ import DropdownVariants from "./detail_page/DropDownVariants";
 import DropdownPDVariants from "./detail_page/DropdownPDVariants";
 import PurchaseOptions from "./detail_page/PurchaseOptions";
 import IshiharaVarients from "./detail_page/IshiharaVarients";
-import MagnifierPurchaseOptions from "./detail_page/MagnifiePurchaseOPtions";
+import MagnifierPurchaseOptions from "./detail_page/MagnifierPurchaseOPtions";
 import { areSelectionsComplete } from "../utils/areSelectionsCompleted";
 import { CartContext } from "../utils/CartContext";
 import { toast } from "react-toastify";

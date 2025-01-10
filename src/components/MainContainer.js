@@ -30,12 +30,12 @@ const MainContainer = () => {
 
   return (
     <div className="container mx-auto px-4 bg-gray-50">
-      {Object.keys(PRODUCTS).map((category) => (
+      {Object.keys(PRODUCTS).map((category,index) => (
         <div
           key={category}
           id={category.toLowerCase().replace(/\s+/g, "-")}
         >
-          <CategoryRow categoryName={category} products={PRODUCTS[category]} />
+          <CategoryRow categoryName={category} products={PRODUCTS[category]} isFirstRow={index === 0}/>
         </div>
       ))}
     </div>

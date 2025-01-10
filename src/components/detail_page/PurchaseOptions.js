@@ -30,7 +30,7 @@ const PurchaseOptions = ({ options }) => {
                         />
                         {option.type === 'set'
                             ? `Set (${option.setSize})`
-                            : `Individual`} - {option.price} 
+                            : `Individual`} - £{option.price} 
                         <span className={`ml-2 ${option.inStock ? 'text-green-600' : 'text-red-600'}`}>
                             {option.inStock ? 'In Stock' : 'Out of Stock'}
                         </span>

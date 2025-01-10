@@ -15,7 +15,7 @@ const AddOns = ({ addOns }) => {
 
     return (
         <div className="my-4">
-            <h3 className="text-lg font-semibold mb-2">Choose Add-Ons</h3>
+            <h3 className="text-lg font-semibold mb-2 text-customBlue">Choose Add-Ons</h3>
             <div className="border p-2 rounded-md">
                 {addOns.map((addOn, index) => (
                     <label key={index} className="block mb-2">
@@ -24,21 +24,21 @@ const AddOns = ({ addOns }) => {
                             className="mr-2"
                             onChange={(event) => handleCheckboxChange(event, addOn)}
                         />
-                        {addOn.name} - {addOn.price}
+                        {addOn.name} - £{addOn.price}
                         {addOn.description && <span className="text-gray-600"> ({addOn.description})</span>}
                     </label>
                 ))}
             </div>
             <div className="mt-4">
-                <h4 className="text-md font-medium">Selected Add-Ons:</h4>
+                <h4 className="text-md font-medium text-customBlue">Selected Add-Ons:</h4>
                 {selectedAddOns.length > 0 ? (
                     <ul className="list-disc list-inside">
                         {selectedAddOns.map((item, index) => (
-                            <li key={index}>{item.name} - {item.price}</li>
+                            <li key={index}>{item.name} - £{item.price}</li>
                         ))}
                     </ul>
                 ) : (
-                    <p className="text-sm text-gray-600">No add-ons selected.</p>
+                    <p className="text-sm text-gray-600 text-customBlue">No add-ons selected.</p>
                 )}
             </div>
         </div>

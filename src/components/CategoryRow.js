@@ -1,13 +1,55 @@
-import React, { useState, useRef, useEffect } from "react";
+import React, { useState, useEffect, useRef } from "react";
 import PropTypes from "prop-types";
 import ProductCard from "./ProductCard";
 
-const CategoryRow = ({ categoryName, products }) => {
-  const [currentIndex, setCurrentIndex] = useState(0);
-  const [productsPerPage, setProductsPerPage] = useState(4);
-  const [visibleDots, setVisibleDots] = useState([]);
+const CategoryRow = ({ categoryName, products, isFirstRow }) => {
+  const [showMessage, setShowMessage] = useState(false);
   const containerRef = useRef(null);
+  const rowRef = useRef(null);
 
+  useEffect(() => {
+    if (isFirstRow) {
+      const observer = new IntersectionObserver(
+        ([entry]) => {
+          if (entry.isIntersecting) {
+            setShowMessage(true); // Show the message when the row enters the viewport
+          }
+        },
+        { threshold: 0.5 }
+      );
+
+      if (rowRef.current) {
+        observer.observe(rowRef.current);
+      }
+
+      return () => {
+        if (rowRef.current) {
+          observer.unobserve(rowRef.current);
+        }
+      };
+    }
+  }, [isFirstRow]);
+
+  // Hide message after interaction or timeout
+  useEffect(() => {
+    const hideMessage = () => setShowMessage(false);
+    const container = containerRef.current;
+
+    if (isFirstRow && container) {
+      container.addEventListener("scroll", hideMessage);
+    }
+
+    const timer = setTimeout(hideMessage, 10000); // Auto-hide after 10 seconds
+
+    return () => {
+      clearTimeout(timer);
+      if (isFirstRow && container) {
+        container.removeEventListener("scroll", hideMessage);
+      }
+    };
+  }, [isFirstRow, showMessage]);
+
+  // Responsive logic for products per page
   const calculateProductsPerPage = () => {
     const screenWidth = window.innerWidth;
     if (screenWidth >= 1280) return 4;
@@ -16,78 +58,47 @@ const CategoryRow = ({ categoryName, products }) => {
     return 1;
   };
 
+  const [productsPerPage, setProductsPerPage] = useState(calculateProductsPerPage);
+
   useEffect(() => {
     const updateProductsPerPage = () => setProductsPerPage(calculateProductsPerPage());
-    updateProductsPerPage();
     window.addEventListener("resize", updateProductsPerPage);
     return () => window.removeEventListener("resize", updateProductsPerPage);
   }, []);
 
-  const totalPages = Math.ceil(products.length / productsPerPage);
-
-  const updateVisibleDots = (newIndex) => {
-    const maxVisibleDots = 6;
-    const start = Math.floor(newIndex / maxVisibleDots) * maxVisibleDots;
-    const end = Math.min(start + maxVisibleDots, totalPages);
-    setVisibleDots([...Array(end - start).keys()].map((i) => i + start));
-  };
-
-  useEffect(() => {
-    updateVisibleDots(currentIndex);
-  }, [currentIndex, totalPages]);
-
+  // Scroll to next set of products
   const handleNext = () => {
-    if (currentIndex < totalPages - 1) {
-      const newIndex = currentIndex + 1;
-      setCurrentIndex(newIndex);
-    }
-  };
-
-  const handlePrev = () => {
-    if (currentIndex > 0) {
-      const newIndex = currentIndex - 1;
-      setCurrentIndex(newIndex);
-    }
-  };
-
-  useEffect(() => {
-    const container = containerRef.current;
-    if (container) {
-      const scrollOffset = currentIndex * container.offsetWidth;
-      container.scrollTo({
-        left: scrollOffset,
+    if (containerRef.current) {
+      containerRef.current.scrollBy({
+        left: containerRef.current.offsetWidth,
         behavior: "smooth",
       });
     }
-  }, [currentIndex]);
+  };
 
-  const handleScroll = () => {
-    const container = containerRef.current;
-    if (!container) return;
-
-    const newIndex = Math.round(container.scrollLeft / container.offsetWidth);
-    if (newIndex !== currentIndex) {
-      setCurrentIndex(newIndex);
+  // Scroll to previous set of products
+  const handlePrev = () => {
+    if (containerRef.current) {
+      containerRef.current.scrollBy({
+        left: -containerRef.current.offsetWidth,
+        behavior: "smooth",
+      });
     }
   };
 
-  useEffect(() => {
-    const container = containerRef.current;
-    if (container) {
-      container.addEventListener("scroll", handleScroll);
-    }
-    return () => {
-      if (container) {
-        container.removeEventListener("scroll", handleScroll);
-      }
-    };
-  }, [currentIndex]);
-
   return (
-    <div className="text-center mb-12">
+    <div className="text-center mb-12" ref={rowRef}>
       <h2 className="my-10 font-bold text-3xl text-customBlue">{categoryName}</h2>
 
       <div className="relative bg-gray-100 py-6 px-6 rounded-lg shadow-lg">
+        {/* Swipe to explore message */}
+        {isFirstRow && showMessage && (
+          <div className="absolute inset-x-0 top-0 text-center text-gray-600 bg-white bg-opacity-80 py-2 rounded-lg shadow-sm lg:hidden">
+            <span className="font-medium text-sm">Swipe for more products</span>
+          </div>
+        )}
+
+        {/* Arrows for navigation */}
         {products.length > productsPerPage && (
           <>
             <button
@@ -107,6 +118,7 @@ const CategoryRow = ({ categoryName, products }) => {
           </>
         )}
 
+        {/* Product cards */}
         <div
           ref={containerRef}
           className={`flex overflow-x-scroll scroll-smooth ${
@@ -126,19 +138,6 @@ const CategoryRow = ({ categoryName, products }) => {
           ))}
         </div>
       </div>
-
-      {/* Dynamic Dots */}
-      <div className="mt-4 flex justify-center items-center space-x-2 lg:hidden">
-        {visibleDots.map((dot) => (
-          <span
-            key={dot}
-            onClick={() => setCurrentIndex(dot)}
-            className={`h-2 w-2 rounded-full cursor-pointer ${
-              currentIndex === dot ? "bg-customSeaGreen" : "bg-gray-400"
-            } transition-colors duration-300`}
-          ></span>
-        ))}
-      </div>
     </div>
   );
 };
@@ -146,6 +145,7 @@ const CategoryRow = ({ categoryName, products }) => {
 CategoryRow.propTypes = {
   categoryName: PropTypes.string.isRequired,
   products: PropTypes.array.isRequired,
+  isFirstRow: PropTypes.bool, // Add prop type for the new prop
 };
 
 export default CategoryRow;

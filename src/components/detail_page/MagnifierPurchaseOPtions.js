@@ -17,7 +17,7 @@ const MagnifierPurchaseOptions = ({ options }) => {
 
     return (
         <div className="mb-4">
-            <label className="block text-sm font-medium mb-2">Select Purchase Option</label>
+            <label className="block text-sm font-medium mb-2 text-customBlue">Select Purchase Option</label>
             <div>
                 {options.map((option, index) => (
                     <div key={index} className="flex items-center mb-2">
@@ -34,7 +34,7 @@ const MagnifierPurchaseOptions = ({ options }) => {
                             htmlFor={`option-${index}`}
                             className="ml-2 text-gray-700"
                         >
-                            {option.label} ({option.price})
+                            {option.label} (£{option.price})
                         </label>
                     </div>
                 ))}

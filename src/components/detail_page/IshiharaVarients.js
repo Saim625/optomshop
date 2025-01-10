@@ -5,7 +5,7 @@ const IshiharaVarients = ({ variants, onVariantSelect, selectedValue }) => {
     <div className="max-w-sm mb-4">
       <label
         htmlFor="variant"
-        className="block mb-2 text-sm font-medium text-gray-700"
+        className="block mb-2 text-sm font-medium text-customBlue"
       >
         Select a variant
       </label>
@@ -24,7 +24,7 @@ const IshiharaVarients = ({ variants, onVariantSelect, selectedValue }) => {
             value={variant.productCode}
             disabled={!variant.inStock}
           >
-            {variant.name} ({variant.price}){" "}
+            {variant.name} (£{variant.price}){" "}
             {variant.inStock ? "" : " - Out of Stock"}
           </option>
         ))}
