@@ -1,8 +1,10 @@
-import React, { useContext } from "react";
+import React, { useContext, useState, useEffect } from "react";
 import { CartContext } from "../utils/CartContext";
+import CheckoutModal  from "../utils/CheckoutModal";
 
 const CartPage = () => {
-  // Extract required context values for cart operations
+  const [checkoutModalOpen, setCheckoutModalOpen] = useState(false);
+
   const { cartItems, removeFromCart, updateCartItemQuantity, cartItemCount } =
     useContext(CartContext);
 
@@ -106,12 +108,13 @@ const CartPage = () => {
                 <span className="font-semibold text-gray-800">{formatPrice(totalPrice)}</span>
               </div>
             </div>
+            { checkoutModalOpen && <CheckoutModal totalPrice={totalPrice} onClose={ () => setCheckoutModalOpen(false)} /> }
             <button
               className="mt-6 w-full bg-green-500 hover:bg-green-600 text-white py-3 rounded text-center font-semibold"
-              onClick={() => alert("Proceed to Checkout")}
+              onClick={() => setCheckoutModalOpen(true)}
               disabled={cartItems.length === 0}
             >
-              Checkout
+              Pay
             </button>
           </div>
         </div>
