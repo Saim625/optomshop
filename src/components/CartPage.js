@@ -30,8 +30,15 @@ const CartPage = () => {
             <h3 className="text-xl font-bold text-gray-700 mb-4">Items in Cart</h3>
             <ul className="space-y-4">
               {cartItems.map((item) => {
+                
                 const { variants = "", pdVariants = "", ishiharaVariants = "" } =
                   item.userSelections || {}; // Destructure user selections
+
+                  let price = item.price;
+
+                  if(ishiharaVariants){
+                    price = ishiharaVariants.price
+                  }
 
                 return (
                   <li
@@ -49,9 +56,9 @@ const CartPage = () => {
                         {variants && <p className="text-sm text-gray-600">Variant: {variants}</p>}
                         {pdVariants && <p className="text-sm text-gray-600">PD: {pdVariants}</p>}
                         {ishiharaVariants && (
-                          <p className="text-sm text-gray-600">Ishihara: {ishiharaVariants}</p>
+                          <p className="text-sm text-gray-600">Ishihara: {ishiharaVariants.name}</p>
                         )}
-                        <p className="text-sm text-gray-600">{formatPrice(item.price)}</p>
+                        <p className="text-sm text-gray-600">{formatPrice(price)}</p>
                       </div>
                     </div>
                     <div className="flex items-center space-x-4">

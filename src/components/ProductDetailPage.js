@@ -12,6 +12,7 @@ import MagnifierPurchaseOptions from "./detail_page/MagnifierPurchaseOPtions";
 import { areSelectionsComplete } from "../utils/areSelectionsCompleted";
 import { CartContext } from "../utils/CartContext";
 import { toast } from "react-toastify";
+import ProductDescription from "./detail_page/ProductDescription";
 
 const ProductDetailPage = () => {
   const [userSelections, setUserSelections] = useState({});
@@ -72,42 +73,44 @@ const ProductDetailPage = () => {
 
   return (
     <div className="p-10 bg-gray-50">
-      <div className="flex items-center justify-center mb-10 bg-white p-6 shadow-[0_0_10px_rgba(0,0,0,0.1)] rounded-lg">
-        <div className="w-1/2 flex justify-end">
+      <div className="flex flex-col md:flex-row items-center md:items-stretch justify-center mb-10 bg-white p-4 md:p-6 shadow-[0_0_10px_rgba(0,0,0,0.1)] rounded-lg">
+        {/* Image Section */}
+        <div className="w-full md:w-1/2 flex justify-center md:justify-end items-center md:items-center mb-4 md:mb-0">
           <div>
             <img
               src={product.imageURL}
               alt={product.name}
-              className="object-contain"
+              className="object-contain max-w-full h-auto"
             />
           </div>
         </div>
-        <div className="flex flex-col ml-10 w-1/2">
-          <h1 className="text-4xl font-bold text-customBlue mb-1">
+
+        {/* Details Section */}
+        <div className="flex flex-col w-full md:w-1/2 px-4 md:px-10">
+          <h1 className="text-2xl md:text-4xl font-bold text-customBlue mb-2 md:mb-4">
             {product.name}
           </h1>
           {product.productCode && (
-            <p className="text-gray-500 mb-2">
+            <p className="text-sm md:text-base text-gray-500 mb-2">
               Product Code: {product.productCode}
             </p>
           )}
           {product.inStock && (
             <p
-              className={`mb-2 ${
+              className={`mb-2 text-sm md:text-base ${
                 product.inStock ? "text-green-600" : "text-red-600"
               }`}
             >
-              {" "}
-              {product.inStock ? "In Stock" : "Out of Stock"}{" "}
+              {product.inStock ? "In Stock" : "Out of Stock"}
             </p>
           )}
-          <p className="text-xl text-customSeaGreen font-semibold mb-4">
-            {" "}
+          <p className="text-lg md:text-xl text-customSeaGreen font-semibold mb-4">
             {product.range && product.range.length > 0
               ? `£${product.range[0].minprice} - £${product.range[0].maxprice}`
-              : `£${product.price}`}{" "}
+              : `£${product.price}`}
           </p>
 
+          {/* Conditional Components */}
           {product.variants && (
             <DropdownVariants
               variants={product.variants}
@@ -125,7 +128,7 @@ const ProductDetailPage = () => {
             <IshiharaVarients
               variants={product.ishiharaVariants}
               selectedValue={userSelections.ishiharaVariants || ""}
-              onSelectionChange={(value) =>
+              onSelectionChange={(value) => 
                 handleSelectionChange("ishiharaVariants", value)
               }
             />
@@ -140,6 +143,8 @@ const ProductDetailPage = () => {
             />
           )}
           {error && <p className="mb-2 text-sm text-red-500">{error}</p>}
+
+          {/* Add to Cart Button */}
           {product.specialOrder && product.specialOrder.required ? (
             <FormOrderLink
               instructions={product.specialOrder.instructions}
@@ -147,61 +152,24 @@ const ProductDetailPage = () => {
             />
           ) : (
             <button
-              className="w-48 px-4 py-2 bg-customSeaGreen text-white rounded-lg hover:bg-customBlue transition-colors mb-3"
+              className="w-full md:w-48 px-4 py-2 bg-customSeaGreen text-white rounded-lg hover:bg-customBlue transition-colors mb-3"
               onClick={handleAddToCart}
             >
               Add to Cart
             </button>
           )}
 
-          <p className="text-gray-700">
+          <p className="text-sm md:text-base text-gray-700">
             Delivery Time:{" "}
             <span className="font-semibold">{product.deliveryTime}</span>
           </p>
         </div>
       </div>
+
       {product.addOns && <AddOns addOns={product.addOns} />}
       {/* Description Section */}
       {product.description && (
-        <div className="bg-gray-100 p-6 mt-8 rounded-lg">
-          <h2 className="text-3xl font-bold text-customBlue mb-4 text-center">
-            Description
-          </h2>
-          <div className="flex justify-center">
-            <div className="w-1/2 flex justify-end">
-              <div className="">
-                <ul className="list-disc list-inside text-sm text-gray-700 text-wrap">
-                  {product.description
-                    .slice(0, Math.ceil(product.description.length / 2))
-                    .map((point, index) => (
-                      <li
-                        key={index}
-                        className="pr-3"
-                        style={{ textIndent: "-1.5em", paddingLeft: "1.5em" }}
-                      >
-                        {point}
-                      </li>
-                    ))}
-                </ul>
-              </div>
-            </div>
-
-            <div className="w-1/2">
-              <ul className="list-disc list-inside text-sm text-gray-700">
-                {product.description
-                  .slice(Math.ceil(product.description.length / 2))
-                  .map((point, index) => (
-                    <li
-                      key={index}
-                      style={{ textIndent: "-1.5em", paddingLeft: "1.5em" }}
-                    >
-                      {point}
-                    </li>
-                  ))}
-              </ul>
-            </div>
-          </div>
-        </div>
+        <ProductDescription description={product.description}/>
       )}
       {product.specifications && (
         <ProductSpecificationList specifications={product.specifications} />

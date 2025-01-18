@@ -656,6 +656,7 @@ export const  MiscellaneousProducts = [
         ],
         ishiharaVariants: [
             {
+                varient: 1,
                 name: '38 plate',
                 productCode: 'ICVT38',
                 price: 75,

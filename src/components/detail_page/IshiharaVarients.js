@@ -1,6 +1,6 @@
 import React from "react";
 
-const IshiharaVarients = ({ variants, onVariantSelect, selectedValue }) => {
+const IshiharaVarients = ({ variants, onSelectionChange, selectedValue }) => {
   return (
     <div className="max-w-sm mb-4">
       <label
@@ -13,7 +13,10 @@ const IshiharaVarients = ({ variants, onVariantSelect, selectedValue }) => {
         id="variant"
         className="w-full p-3 border rounded-md shadow-sm focus:outline-none focus:ring-2 focus:ring-indigo-500"
         value={selectedValue}
-        onChange={(e) => onVariantSelect(e.target.value)}
+        onChange={(e) => {
+          console.log(e.target.value)
+          return onSelectionChange(variants.find(variant => variant.productCode === e.target.value))
+        }}
       >
         <option value="" disabled>
           -- Select a variant --
