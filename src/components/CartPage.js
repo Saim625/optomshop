@@ -1,4 +1,4 @@
-import React, { useContext, useState, useEffect } from "react";
+import React, { useContext, useState } from "react";
 import { CartContext } from "../utils/CartContext";
 import CheckoutModal  from "../utils/CheckoutModal";
 
@@ -33,7 +33,7 @@ const CartPage = () => {
         description: description,
         price: price,
         quantity: item.quantity || 1, // Ensure default quantity is 1
-        image: item.image || "", // Fallback if no image is available
+        image: item.imageURL  || "", // Fallback if no image is available
       };
     });
 
@@ -42,6 +42,7 @@ const CartPage = () => {
     (total, item) => total + Number(item.price || 0) * item.quantity,
     0
   );
+  
 
   // Helper function to format price for display
   const formatPrice = (price) => `£${Number(price || 0).toFixed(2)}`;
