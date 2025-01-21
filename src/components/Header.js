@@ -18,9 +18,10 @@ const Header = () => {
 
 
   const allProducts = Object.values(PRODUCTS).flat();
-  const { cartItemCount } = useContext(CartContext);
+  const { uniqueCartItemCount } = useContext(CartContext);
 
   const searchRef = useRef(null);
+  const inputRef = useRef(null); // Ref for the input field
 
   const scrollToCategory = (categoryId) => {
     if (location.pathname !== "/") {
@@ -51,6 +52,7 @@ const Header = () => {
   const handleSearchChange = (e) => {
     const query = e.target.value.toLowerCase();
     setSearchQuery(query);
+
     if (query) {
       const filteredSuggestions = allProducts.filter((product) =>
         product.name.toLowerCase().includes(query)
@@ -70,23 +72,19 @@ const Header = () => {
         setSuggestions([]);
       }
     };
+
     document.addEventListener("mousedown", handleClickOutside);
     return () => {
       document.removeEventListener("mousedown", handleClickOutside);
     };
   }, []);
 
+  // Focus input when the search bar becomes visible
   useEffect(() => {
-    const handleDropdownClickOutside = () => {
-      setIsMobileCategoryDropdownOpen(false); // Close dropdown
-    };
-
-    document.addEventListener("click", handleDropdownClickOutside);
-
-    return () => {
-      document.removeEventListener("click", handleDropdownClickOutside);
-    };
-  }, []);
+    if (isSearchVisible && inputRef.current) {
+      inputRef.current.focus();
+    }
+  }, [isSearchVisible]);
 
   return (
     <header className="bg-white shadow-md sticky top-0 z-50">
@@ -152,59 +150,70 @@ const Header = () => {
         <div className="flex items-center space-x-6">
           {/* Search Icon */}
           <div ref={searchRef} className="relative flex">
-            <button
-              onClick={() => setIsSearchVisible((prev) => !prev)}
-              className="text-customBlue"
-            >
-              <img
-                src="/images/search_icon.png"
-                alt="Search"
-                className="w-6 h-6"
-              />
-            </button>
-            {isSearchVisible && (
-              <div className="relative">
-                <input
-                  type="text"
-                  placeholder="Search for products..."
-                  value={searchQuery}
-                  onChange={handleSearchChange}
-                  className="absolute top-10 right-0 text-customBlue bg-white border border-gray-300 rounded-md p-2 shadow-md w-44 xs:w-56 sm:w-72"
-                />
+      {/* Search Icon */}
+      <button
+        onClick={() => setIsSearchVisible((prev) => !prev)}
+        className="text-customBlue"
+        aria-label="Toggle search bar"
+      >
+        <img
+          src="/images/search_icon.png"
+          alt="Search"
+          className="w-6 h-6"
+        />
+      </button>
+               {/* Search Input */}
+      {isSearchVisible && (
+        <div className="relative">
+          <input
+            ref={inputRef} // Attach ref for focusing
+            type="text"
+            placeholder="Search for products..."
+            value={searchQuery}
+            onChange={handleSearchChange}
+            className="absolute top-10 right-0 text-customBlue bg-white border border-gray-300 rounded-md p-2 shadow-md w-44 xs:w-56 sm:w-72"
+            aria-expanded={isSearchVisible}
+            aria-haspopup="listbox"
+          />
                 {searchQuery && (
-                  <div className="absolute top-20 right-0 text-customBlue bg-white border border-gray-300 rounded-md shadow-md mt-1   w-44 xs:w-56 sm:w-72 max-h-56 overflow-auto">
-                    {suggestions.length > 0 ? (
-                      <ul>
-                        {suggestions.map((product) => (
-                          <li
-                            key={product.id}
-                            className="p-2 hover:bg-gray-100 cursor-pointer"
-                            onClick={() => {
-                              navigate(`/product/${product.id}`);
-                              setIsSearchVisible(false); // Hide search bar
-                              setSearchQuery(""); // Clear search input
-                              setSuggestions([]); // Clear suggestions
-                            }}
-                          >
-                            {product.name}
-                          </li>
-                        ))}
-                      </ul>
-                    ) : (
-                      <p className="p-2 text-gray-500">No result found</p>
-                    )}
-                  </div>
-                )}
-              </div>
-            )}
+            <div
+              className="absolute top-20 right-0 text-customBlue bg-white border border-gray-300 rounded-md shadow-md mt-1 w-44 xs:w-56 sm:w-72 max-h-56 overflow-auto"
+              role="listbox"
+            >
+              {suggestions.length > 0 ? (
+                <ul>
+                  {suggestions.map((product) => (
+                    <li
+                      key={product.id}
+                      className="p-2 hover:bg-gray-100 cursor-pointer"
+                      onClick={() => {
+                        navigate(`/product/${product.id}`);
+                        setIsSearchVisible(false);
+                        setSearchQuery("");
+                        setSuggestions([]);
+                      }}
+                      role="option"
+                      aria-selected="false"
+                    >
+                      {product.name}
+                    </li>
+                  ))}
+                </ul>
+              ) : (
+                <p className="p-2 text-gray-500">No result found</p>
+              )}
+            </div>
+               )}
+               </div>
+             )}
           </div>
 
-          {/* Cart Icon */}
+          {/* Cart I  con */}
           <NavLink to="/cart" className="relative text-customBlue">
             <img src="/images/cart.png" alt="Cart" className="w-8 h-8" />
-            {cartItemCount > 0 && (
+            {uniqueCartItemCount > 0 && (
               <span className="absolute -top-1 -right-2 bg-red-500 text-white rounded-full px-2 py-0 text-xs font-bold shadow-lg">
-                {cartItemCount}
+                {uniqueCartItemCount}
               </span>
             )}
           </NavLink>

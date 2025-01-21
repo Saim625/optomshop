@@ -12,10 +12,14 @@ const IshiharaVarients = ({ variants, onSelectionChange, selectedValue }) => {
       <select
         id="variant"
         className="w-full p-3 border rounded-md shadow-sm focus:outline-none focus:ring-2 focus:ring-indigo-500"
-        value={selectedValue}
+        value={selectedValue && selectedValue.productCode}
         onChange={(e) => {
-          console.log(e.target.value)
-          return onSelectionChange(variants.find(variant => variant.productCode === e.target.value))
+          const selectedVariant = variants.find(
+            (variant) => variant.productCode === e.target.value
+          );
+          if (selectedVariant) {
+            onSelectionChange(selectedVariant); // Pass the full object
+          }
         }}
       >
         <option value="" disabled>

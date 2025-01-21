@@ -3,6 +3,20 @@ import { GiBinoculars } from "react-icons/gi";
 import { FaSearchPlus, FaMoneyBillAlt, FaShippingFast } from "react-icons/fa";
 
 const HeroBanner = () => {
+
+  const scrollToCategory = (categoryId) => {
+    const targetElement = document.getElementById(categoryId.toLowerCase());
+    if (targetElement) {
+      const headerHeight = window.innerWidth <= 768 ? 400 : 74;
+      const elementPosition = targetElement.getBoundingClientRect().top + window.scrollY;
+      const offsetPosition = elementPosition - headerHeight;
+
+      window.scrollTo({
+        top: offsetPosition,
+        behavior: "smooth",
+      });
+    }
+  }
   return (
   <div className="relative h-[50vh] xl:h-[70vh] bg-gradient-to-r from-blue-100 to-blue-300 flex flex-col sm:flex-row items-center justify-between px-6 sm:px-12 lg:px-24">
       {/* Left Content */}
@@ -14,7 +28,8 @@ const HeroBanner = () => {
           Explore our wide range of optometry and optical equipment, designed
           for professionals. Reliable, affordable, and ready for your needs.
         </p>
-        <button className="mt-6 px-6 sm:px-8 py-2 sm:py-3 bg-customSeaGreen text-white font-medium text-sm sm:text-lg rounded-lg hover:bg-customBlue transition-all">
+        <button className="mt-6 px-6 sm:px-8 py-2 sm:py-3 bg-customSeaGreen text-white font-medium text-sm sm:text-lg rounded-lg hover:bg-customBlue transition-all"
+        onClick={() => scrollToCategory("laboratory-products")}>
           Explore Products
         </button>
       </div>

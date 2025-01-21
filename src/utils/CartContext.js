@@ -18,6 +18,7 @@ export const CartProvider = ({ children }) => {
       variants = [],
       pdVariants = [],
       ishiharaVariants = [],
+      purchaseOptions = [],
     } = product; // Default values for missing fields
 
     let finalPrice = basePrice;
@@ -50,6 +51,17 @@ export const CartProvider = ({ children }) => {
       );
       if (selectedIshiharaVariant?.price) {
         finalPrice = selectedIshiharaVariant.price;
+      }
+    }
+
+    // Check `purchaseOptions` for selected option and price
+    if (userSelections.purchaseOptions && purchaseOptions.length > 0) {
+      const selectedPurchaseOption = purchaseOptions.find(
+        (purchaseOption) =>
+        purchaseOption.label === userSelections.purchaseOptions
+      );
+      if (selectedPurchaseOption?.price) {
+        finalPrice = selectedPurchaseOption.price;
       }
     }
 
@@ -122,7 +134,6 @@ export const CartProvider = ({ children }) => {
   const clearCart = () => {
     setCartItems([]);
   };
-
   /**
    * Calculates the total number of items in the cart by summing up the quantities.
    */
@@ -130,6 +141,8 @@ export const CartProvider = ({ children }) => {
     (count, item) => count + item.quantity,
     0
   );
+// calculate the unique number of items to show on cart icon
+  const uniqueCartItemCount = cartItems.length;
 
   return (
     <CartContext.Provider
@@ -139,7 +152,8 @@ export const CartProvider = ({ children }) => {
         removeFromCart,
         updateCartItemQuantity,
         clearCart,
-        cartItemCount,
+        uniqueCartItemCount,
+        cartItemCount
       }}
     >
       {children}

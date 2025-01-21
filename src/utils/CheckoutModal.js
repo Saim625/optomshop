@@ -1,7 +1,7 @@
 import React from 'react';
 import PayPalButton  from "../components/PaypalCheckout.js";
 
-const PopupModal = ({ totalPrice, onClose }) => {
+const CheckoutModal = ({ totalPrice, onClose, checkoutItems }) => {
 
     const formatPrice = (price) => `£${Number(price || 0).toFixed(2)}`;
 
@@ -34,7 +34,7 @@ const PopupModal = ({ totalPrice, onClose }) => {
                 {/* Content Area - Scrollable Section */}
                 <div className="overflow-y-auto max-h-[60vh]">
                 <div className="mt-4 p-5">
-                    <PayPalButton amount={totalPrice} />
+                    <PayPalButton totalPrice={totalPrice} checkoutItems={checkoutItems} />
                 </div>
                 </div>
             </div>
@@ -42,4 +42,4 @@ const PopupModal = ({ totalPrice, onClose }) => {
       );
 };
 
-export default PopupModal;
+export default CheckoutModal;

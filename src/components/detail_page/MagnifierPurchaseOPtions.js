@@ -1,18 +1,13 @@
 import React, { useEffect, useState } from "react";
 import PropTypes from "prop-types";
 
-const MagnifierPurchaseOptions = ({ options }) => {
+const MagnifierPurchaseOptions = ({ options, onSelectionChange }) => {
     const [selectedOption, setSelectedOption] = useState(options[0].label);
 
-    useEffect(() => {
-       const defaultOption = options.find(option => option.label === 'Single unit');
-       if (defaultOption) {
-           setSelectedOption(defaultOption.label);
-       }
-   }, [options]);
-
    const handleOptionChange = (event) => {
-       setSelectedOption(event.target.value);
+       const label = event.target.value;
+       setSelectedOption(label);
+       onSelectionChange(options.find(option => option.label === label))
    };
 
     return (
@@ -51,7 +46,7 @@ MagnifierPurchaseOptions.propTypes = {
             price: PropTypes.string.isRequired,
         })
     ).isRequired,
-    onOptionSelect: PropTypes.func.isRequired,
+    onSelectionChange: PropTypes.func.isRequired,
 };
 
 export default MagnifierPurchaseOptions;

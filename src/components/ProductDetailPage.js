@@ -121,7 +121,12 @@ const ProductDetailPage = () => {
             />
           )}
           {product.purchaseOptions && (
-            <MagnifierPurchaseOptions options={product.purchaseOptions} />
+            <MagnifierPurchaseOptions
+              options={product.purchaseOptions}
+              onSelectionChange={(value) =>
+                handleSelectionChange("purchaseOptions", value)
+              }
+            />
           )}
           {product.options && <PurchaseOptions options={product.options} />}
           {product.ishiharaVariants && (
@@ -166,7 +171,9 @@ const ProductDetailPage = () => {
         </div>
       </div>
 
-      {product.addOns && <AddOns addOns={product.addOns} />}
+      {/* {product.addOns && <AddOns addOns={product.addOns} setSelectedAddOns={(value) =>
+                handleSelectionChange("addOns", value)
+              }  />} */}
       {/* Description Section */}
       {product.description && (
         <ProductDescription description={product.description}/>
@@ -174,9 +181,6 @@ const ProductDetailPage = () => {
       {product.specifications && (
         <ProductSpecificationList specifications={product.specifications} />
       )}
-      <Link to="/" className="text-blue-600 hover:underline mt-8 block">
-        Return to Home
-      </Link>
     </div>
   );
 };

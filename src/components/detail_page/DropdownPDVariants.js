@@ -6,8 +6,8 @@ const DropdownPDVariants = ({ variants, onSelectionChange, selectedValue }) => {
         <div className="mt-0 mb-4">
             <label className="block text-sm font-medium mb-2 text-customBlue">Select PD (Pupillary Distance)</label>
             <select
-                value={selectedValue}
-                onChange={(e) => onSelectionChange(e.target.value)}
+                value={selectedValue && selectedValue.PD}
+                onChange={(e) => onSelectionChange(variants.find(option => option.PD === e.target.value))}
                 className="w-40 p-2 border rounded"
             >
                 <option value="" disabled>Select a PD...</option>
