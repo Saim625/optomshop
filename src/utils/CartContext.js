@@ -26,17 +26,20 @@ export const CartProvider = ({ children }) => {
 
     // Sync cart across tabs
     useEffect(() => {
-      const syncCart = (event) => {
-        if (event.key === "cartItems") {
-          setCartItems(JSON.parse(event.newValue) || []);
+      const syncCart = () => {
+        const storedCart = localStorage.getItem('cartItems');
+        if (storedCart) {
+          setCartItems(JSON.parse(storedCart));
+        } else {
+          setCartItems([]);
         }
       };
   
-      window.addEventListener("storage", syncCart);
+      // Poll localStorage every 500ms for changes
+      const interval = setInterval(syncCart, 500);
   
-      return () => {
-        window.removeEventListener("storage", syncCart);
-      };
+      // Cleanup the interval when the component unmounts
+      return () => clearInterval(interval);
     }, []);
   
 
