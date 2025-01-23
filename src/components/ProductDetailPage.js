@@ -147,6 +147,10 @@ const ProductDetailPage = () => {
               }
             />
           )}
+            {product.addOns && <AddOns addOns={product.addOns} setSelectedAddOns={(value) =>
+                handleSelectionChange("addOns", value)
+              }  />}
+      {/* Description Section */}
           {error && <p className="mb-2 text-sm text-red-500">{error}</p>}
 
           {/* Add to Cart Button */}
@@ -171,10 +175,6 @@ const ProductDetailPage = () => {
         </div>
       </div>
 
-      {/* {product.addOns && <AddOns addOns={product.addOns} setSelectedAddOns={(value) =>
-                handleSelectionChange("addOns", value)
-              }  />} */}
-      {/* Description Section */}
       {product.description && (
         <ProductDescription description={product.description}/>
       )}
