@@ -34,5 +34,5 @@ jobs:
         target: "/optom"
         tar_exec: true
         debug: true
-        command_timeout: 600
-        timeout: 300
+        command_timeout: 600s
+        timeout: 300s
