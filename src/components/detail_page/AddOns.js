@@ -45,6 +45,8 @@ const AddOns = ({ addOns }) => {
     );
 };
 
+
+
 AddOns.propTypes = {
     addOns: PropTypes.arrayOf(
         PropTypes.shape({
