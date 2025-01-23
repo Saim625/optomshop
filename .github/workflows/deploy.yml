@@ -31,7 +31,7 @@ jobs:
         password: ${{ secrets.SFTP_PASSWORD }}
         port: ${{ secrets.SFTP_PORT }}
         source: "build/*"
-        target: "/optom"
+        target: "/home/crypto_bro/optom"
         tar_exec: true
         debug: true
         command_timeout: 600s
