@@ -2,15 +2,18 @@
 import React, { useState } from 'react';
 import PropTypes from 'prop-types';
 
-const AddOns = ({ addOns }) => {
+const AddOns = ({ addOns, onSelectionChange }) => {
     const [selectedAddOns, setSelectedAddOns] = useState([]);
 
     const handleCheckboxChange = (event, addOn) => {
+        let newAddOns
         if (event.target.checked) {
-            setSelectedAddOns([...selectedAddOns, addOn]);
+            newAddOns =  [...selectedAddOns, addOn]
         } else {
-            setSelectedAddOns(selectedAddOns.filter(item => item.name !== addOn.name));
+            newAddOns = selectedAddOns.filter(item => item.name !== addOn.name)
         }
+        setSelectedAddOns(newAddOns);
+        onSelectionChange(newAddOns);
     };
 
     return (

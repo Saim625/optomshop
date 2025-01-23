@@ -147,7 +147,7 @@ const ProductDetailPage = () => {
               }
             />
           )}
-            {product.addOns && <AddOns addOns={product.addOns} setSelectedAddOns={(value) =>
+            {product.addOns && <AddOns addOns={product.addOns} onSelectionChange={(value) =>
                 handleSelectionChange("addOns", value)
               }  />}
       {/* Description Section */}
