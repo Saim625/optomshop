@@ -6,7 +6,7 @@ import WhyChooseUs from "./WhyChooseUs";
 const Body = () => {
   return (
     <div>
-      <HeroBanner />
+      {/* <HeroBanner /> */}
       <MainContainer />
       <WhyChooseUs />
     </div>

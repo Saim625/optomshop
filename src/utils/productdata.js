@@ -35,114 +35,6 @@ import  Stereo_Fly_Test from "../productImages/Stereo_Fly_Test.jpg"
 import  trial_lenses_glass from "../productImages/trial-lenses-glass.jpg"
 import  plastic_rim_trial_lenses from "../productImages/plastic-rim-trial-lenses.jpg"
 
-export const LaboratoryProducts = [
-    {
-        id: 1,
-        name: 'Auto Lens Groover',
-        productCode: 'ALG',
-        price: 139,
-        description: [
-            "Manual adjustable, precise controlling",
-            "Suitable for plastic and glass lenses",
-            "Adjustable groove position (front-central-rear)",
-            "Accurate on all profiles",
-            "Weight: 3kg"
-        ],
-        specifications: [
-            "Adjustable groove depth: 0 to 0.7mm",
-            "Groove width: 0.65mm",
-            "Lens thickness: 1.5 to 11mm",
-            "Lens diameter: 18 to 70mm",
-            "Power: 90w"
-        ],
-        imageURL: autolensgroover,
-        inStock: true,
-        deliveryTime: "Delivery within 3-5 days"
-    },{
-        id: 2,
-        name: 'Frame Heater',
-        productCode: 'FH1',
-        price: 75,
-        description: [
-            "Easy to use. Simple design.",
-            "Optional hot or cold air output"
-        ],
-        imageURL: frameheater,
-        inStock: true,
-        deliveryTime: "Delivery 2-5 working days."
-    },{
-        id: 3,
-        name: 'Rimless Lens Drill',
-        productCode: "RLD",
-        price: 139,
-        description: [
-                "Suitable for glass, CR39 and Polycarbonate lenses",
-                "Simultaneous drilling from both sides of the lens",
-                "Suction lens holder",
-                "Adjustable angle and position of drilling hole",
-                "Diameter of drilling hole accurately adjusted with readable scale", 
-                "Drill diameter: 0.8mm - 2.8mm",
-                "Comes with full instructions.",
-                "Weight: 4.1 kg"
-        ],
-        imageURL: rimlessdrill,
-        inStock: true,
-        deliveryTime: "Delivery within 3 to 5 working days."
-    },{
-        id: 4,
-        name: 'Manual Focimeter/Lensmeter (internal reading)',
-        subName: 'with prism compensator',
-        productCode: 'MFL1',
-        price: 325,
-        description: [
-            "Measurement Range: 0 to Â±25D",
-            "Minimum: 0.125D graduation up to Â±5D, 0.25D graduations over Â±5D to Â±25D",
-            "Cylinder Axis Range: 0 to 180Â° in 5Â° steps",
-            "Prismatic Power Range: 0 to 5∆ (1∆ interval)",
-            "Prism base angle: range of 0 ~ 180 degree",
-            "Eyepiece Adjustment: Â±5D",
-            "Cross Target: makes axes easier to measure",
-            "Dimensions: 275mm(h) Ã—130mm(w) Ã—455mm(d)",
-            "Weight: 5.6 kg",
-            "Lamp: LED (comes with spare)",
-            "1 year warranty"
-        ],
-        imageURL: focimeter_manual_lensmeter,
-        inStock: true,
-        deliveryTime: "Delivery in 3-5 working days"
-    },{
-        id: 5,
-        name: 'Lens Thickness Gauge',
-        productCode: 'LTG',
-        price: 15,
-        description: [
-            "A must have for quality control and job checking by Opticians.",
-            "Very easy to use.",
-            "Measuring range: 0-11mm, 0.05mm increments",
-            "With hardened ball smooth tips.",
-            "Comes with protective case."
-        ],
-        imageURL: lens_thickness_gauge,
-        inStock: true,
-        deliveryTime: "Delivery within 2-5 working days."
-    },{
-        id: 6,
-        name: 'Optical Lens Measure Clock',
-        productCode: 'OLMC',
-        price: 32,
-        description: [
-            "Measure the power of an optical lens.",
-            "Very easy to use.",
-            "Refractive index: 1.49",
-            "Plus and minus measuring in 0.25 steps up to 20D.",
-            "With protective cover for measuring tips and storage box."
-        ],
-        imageURL: optical_lens_measure_clock,
-        inStock: true,
-        deliveryTime: "Delivery within 2 to 5 working days."
-    },
-]
-
 export const RefractionProducts= [
     {
         id: 7,
@@ -166,9 +58,12 @@ export const RefractionProducts= [
         variants: [
             {
                 power: '±0.25',
+                inStock: true
             },
             {
                 power: '±0.50',
+                inStock: true
+
             }
         ],
         description: [
@@ -435,7 +330,12 @@ export const RefractionProducts= [
     },{ 
         id: 21,
         name: 'Trial Lens Set (232 piece) by CIOM',
-        price: 799,
+        range: [
+            {
+                minprice: 10,
+                maxprice: 799,
+            }
+        ],
         description: [
             "Often considered the best trial lens set by optometrists. Highest quality, made in Italy",
 
@@ -459,6 +359,7 @@ export const RefractionProducts= [
                 inStock: false,
             },
         ],
+        inStock: true,
         imageURL: trial_lens_set_CIOM,
         deliveryTime: "Delivery within 2 to 5 working days"
     },{ 
@@ -545,6 +446,10 @@ export const TestRoomProducts = [
             "Cylinder axis: 0 to 180 (in 5° steps)",
             "Cross Cylinder: ±25 D",
             "Rotary Prisms: 0∆ to 20∆, (in 1∆ steps)",
+            "P.D. range: 48-75mm, 1mm steps",
+            "Standard Accessory lenses: Two 0.12D and -2.00 cylinder lenses,  two Plano lenses for sealing front opening.",
+            "Standard Accessories: 1 near point card with holder and reading rod, dust cover, face shield, accessory case for lenses.",
+            "Dimensions: 318mm (H) x 293mm (W) x 96mm (D)",
             `Auxiliary lens dial:
             (O) Open aperture (two positions)    
             (R) Retinoscopic lens, +1.50D
@@ -561,10 +466,6 @@ export const TestRoomProducts = [
             (10∆ L) or (6∆ U) -10∆ base-in-left eye, 6∆ base-up-right eye (dissociating prisms)                                               
             (±0. 50)- fixed cross cylinder                       
             (OC) Occluder`,
-            "P.D. range: 48-75mm, 1mm steps",
-            "Standard Accessory lenses: Two 0.12D and -2.00 cylinder lenses,  two Plano lenses for sealing front opening.",
-            "Standard Accessories: 1 near point card with holder and reading rod, dust cover, face shield, accessory case for lenses.",
-            "Dimensions: 318mm (H) x 293mm (W) x 96mm (D)",
             "Weight: 4.5 kg",
             "1 year warranty "
         ],
@@ -610,6 +511,114 @@ export const TestRoomProducts = [
         imageURL: slit_lamp_5F1,
         inStock: true,
         deliveryTime: "Delivery in 5-7 days."
+    },
+]
+
+export const LaboratoryProducts = [
+    {
+        id: 1,
+        name: 'Auto Lens Groover',
+        productCode: 'ALG',
+        price: 139,
+        description: [
+            "Manual adjustable, precise controlling",
+            "Suitable for plastic and glass lenses",
+            "Adjustable groove position (front-central-rear)",
+            "Accurate on all profiles",
+            "Weight: 3kg"
+        ],
+        specifications: [
+            "Adjustable groove depth: 0 to 0.7mm",
+            "Groove width: 0.65mm",
+            "Lens thickness: 1.5 to 11mm",
+            "Lens diameter: 18 to 70mm",
+            "Power: 90w"
+        ],
+        imageURL: autolensgroover,
+        inStock: true,
+        deliveryTime: "Delivery within 3-5 days"
+    },{
+        id: 2,
+        name: 'Frame Heater',
+        productCode: 'FH1',
+        price: 75,
+        description: [
+            "Easy to use. Simple design.",
+            "Optional hot or cold air output"
+        ],
+        imageURL: frameheater,
+        inStock: true,
+        deliveryTime: "Delivery 2-5 working days."
+    },{
+        id: 3,
+        name: 'Rimless Lens Drill',
+        productCode: "RLD",
+        price: 139,
+        description: [
+                "Suitable for glass, CR39 and Polycarbonate lenses",
+                "Simultaneous drilling from both sides of the lens",
+                "Suction lens holder",
+                "Adjustable angle and position of drilling hole",
+                "Diameter of drilling hole accurately adjusted with readable scale", 
+                "Drill diameter: 0.8mm - 2.8mm",
+                "Comes with full instructions.",
+                "Weight: 4.1 kg"
+        ],
+        imageURL: rimlessdrill,
+        inStock: true,
+        deliveryTime: "Delivery within 3 to 5 working days."
+    },{
+        id: 4,
+        name: 'Manual Focimeter/Lensmeter (internal reading)',
+        subName: 'with prism compensator',
+        productCode: 'MFL1',
+        price: 325,
+        description: [
+            "Measurement Range: 0 to Â±25D",
+            "Minimum: 0.125D graduation up to Â±5D, 0.25D graduations over Â±5D to Â±25D",
+            "Cylinder Axis Range: 0 to 180Â° in 5Â° steps",
+            "Prismatic Power Range: 0 to 5∆ (1∆ interval)",
+            "Prism base angle: range of 0 ~ 180 degree",
+            "Eyepiece Adjustment: Â±5D",
+            "Cross Target: makes axes easier to measure",
+            "Dimensions: 275mm(h) Ã—130mm(w) Ã—455mm(d)",
+            "Weight: 5.6 kg",
+            "Lamp: LED (comes with spare)",
+            "1 year warranty"
+        ],
+        imageURL: focimeter_manual_lensmeter,
+        inStock: true,
+        deliveryTime: "Delivery in 3-5 working days"
+    },{
+        id: 5,
+        name: 'Lens Thickness Gauge',
+        productCode: 'LTG',
+        price: 15,
+        description: [
+            "A must have for quality control and job checking by Opticians.",
+            "Very easy to use.",
+            "Measuring range: 0-11mm, 0.05mm increments",
+            "With hardened ball smooth tips.",
+            "Comes with protective case."
+        ],
+        imageURL: lens_thickness_gauge,
+        inStock: true,
+        deliveryTime: "Delivery within 2-5 working days."
+    },{
+        id: 6,
+        name: 'Optical Lens Measure Clock',
+        productCode: 'OLMC',
+        price: 32,
+        description: [
+            "Measure the power of an optical lens.",
+            "Very easy to use.",
+            "Refractive index: 1.49",
+            "Plus and minus measuring in 0.25 steps up to 20D.",
+            "With protective cover for measuring tips and storage box."
+        ],
+        imageURL: optical_lens_measure_clock,
+        inStock: true,
+        deliveryTime: "Delivery within 2 to 5 working days."
     },
 ]
 
@@ -788,9 +797,9 @@ export const  MiscellaneousProducts = [
 ]       
 
 export const PRODUCTS = {
-   "LABORATORY PRODUCTS": LaboratoryProducts,
     "REFRACTION PRODUCTS": RefractionProducts,
     "TEST ROOM PRODUCTS": TestRoomProducts,
+    "LABORATORY PRODUCTS": LaboratoryProducts,
     "MISCELLANEOUS PRODUCTS": MiscellaneousProducts 
 } 
 

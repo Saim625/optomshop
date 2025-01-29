@@ -1,4 +1,4 @@
-const selectionKeys = ["variants", "ishiharaVariants", "pdVariants"];
+const selectionKeys = ["variants", "ishiharaVariants", "pdVariants", "options"];
 
 export const hasRequiredSelections = (product) => {
   const hasSelection = selectionKeys.some(

@@ -49,12 +49,10 @@ const Footer = () => {
           </div>
           <div className="flex items-center space-x-3">
             <LucideMail className="w-5 h-5" />
-            <a
-              href="mailto:support@optomshop.com"
-              className="hover:underline hover:text-gray-300"
-            >
-              support@optomshop.com
-            </a>
+            <img
+            src="footerEmail.png"
+            alt="info@optomshop.co.uk"
+          />
           </div>
         </div>
 

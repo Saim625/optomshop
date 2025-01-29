@@ -3,7 +3,6 @@ import { NavLink, useLocation, useNavigate } from "react-router-dom";
 import { CartContext } from "../utils/CartContext";
 import { FiChevronDown } from "react-icons/fi";
 import { PRODUCTS } from "../utils/productdata";
-import { FaLessThanEqual } from "react-icons/fa";
 
 const Header = () => {
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
@@ -90,7 +89,9 @@ const Header = () => {
     <header className="bg-white shadow-md sticky top-0 z-50">
       <div className="container mx-auto px-6 py-4 flex items-center justify-between">
         {/* Logo */}
-        <div className="text-lg font-bold text-customBlue">LOGO</div>
+        <div>
+        <img src="/favicon.jpeg" alt="logo" className="h-16 w-16  object-contain" />       
+         </div>
 
         {/* Desktop Nav Links */}
         <nav className="hidden lg:flex space-x-10 text-customBlue items-center">
@@ -117,12 +118,6 @@ const Header = () => {
                 {/* Scroll Logic for Category Links */}
                 <button
                   className="block px-4 py-2 hover:bg-gray-100 w-full text-left"
-                  onClick={() => scrollToCategory("laboratory-products")}
-                >
-                  Laboratory Products
-                </button>
-                <button
-                  className="block px-4 py-2 hover:bg-gray-100 w-full text-left"
                   onClick={() => scrollToCategory("refraction-products")}
                 >
                   Refraction Products
@@ -132,6 +127,12 @@ const Header = () => {
                   onClick={() => scrollToCategory("test-room-products")}
                 >
                   Test Room Products
+                </button>
+                <button
+                  className="block px-4 py-2 hover:bg-gray-100 w-full text-left"
+                  onClick={() => scrollToCategory("laboratory-products")}
+                >
+                  Laboratory Products
                 </button>
                 <button
                   className="block px-4 py-2 hover:bg-gray-100 w-full text-left"
@@ -275,17 +276,6 @@ const Header = () => {
                   <li>
                     <button
                       onClick={() => {
-                        scrollToCategory("laboratory-products");
-                        setIsMobileCategoryDropdownOpen(false); // Close dropdown
-                      }}
-                      className="text-left w-full hover:bg-gray-100 px-2 py-1"
-                    >
-                      Laboratory Products
-                    </button>
-                  </li>
-                  <li>
-                    <button
-                      onClick={() => {
                         scrollToCategory("refraction-products");
                         setIsMobileCategoryDropdownOpen(false); // Close dropdown
                       }}
@@ -303,6 +293,17 @@ const Header = () => {
                       className="text-left w-full hover:bg-gray-100 px-2 py-1"
                     >
                       Test Room Products
+                    </button>
+                  </li>
+                  <li>
+                    <button
+                      onClick={() => {
+                        scrollToCategory("laboratory-products");
+                        setIsMobileCategoryDropdownOpen(false); // Close dropdown
+                      }}
+                      className="text-left w-full hover:bg-gray-100 px-2 py-1"
+                    >
+                      Laboratory Products
                     </button>
                   </li>
                   <li>

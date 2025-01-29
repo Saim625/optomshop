@@ -20,7 +20,7 @@ const StudentDiscountsPage = () => {
         </h2>
         <p className="text-gray-700 leading-relaxed">
           We can offer individuals, groups, or companies a discount if they
-          need to buy in larger quantities. For a quote, simply tel/fax/email us
+          need to buy in larger quantities. For a quote, simply tel/email us
           with your order details.
         </p>
       </section>
@@ -75,17 +75,12 @@ const StudentDiscountsPage = () => {
           <p>
             <strong>Phone:</strong> +44 (0)7515789661
           </p>
-          <p>
-            <strong>Fax:</strong> +44 (0)870 838 1365
-          </p>
-          <p>
+          <p className="flex">
             <strong>Email:</strong>{" "}
-            <a
-              href="mailto:support@optomshop.com"
-              className="text-customBlue underline"
-            >
-              support@optomshop.com
-            </a>
+            <img
+              src="email.jpg"
+              alt="info@optomshop.co.uk"
+            />
           </p>
         </div>
       </section>

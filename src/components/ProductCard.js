@@ -1,6 +1,6 @@
 import React, { useContext, useState } from "react";
 import PropTypes from "prop-types";
-import { Link, NavLink } from "react-router-dom";
+import { Link, NavLink, useNavigate } from "react-router-dom";
 import { hasRequiredSelections } from "../utils/hasRequiredSelection";
 import PopupModal from "../utils/PopupModal";
 import { CartContext } from "../utils/CartContext";
@@ -10,6 +10,8 @@ const ProductCard = ({ product }) => {
   const { addToCart } = useContext(CartContext);
 
   const [isModalOpen, setIsModalOpen] = useState(false);
+
+  const navigate = useNavigate();
 
   const handleAddToCart = () => {
     if (hasRequiredSelections(product)) {
@@ -28,9 +30,8 @@ const ProductCard = ({ product }) => {
 
   const handleCloseModal = () => setIsModalOpen(false);
   const handleGoToDetails = () => {
-    window.location.href = `/product/${product.id}`;
+    navigate(`/product/${product.id}`);
   };
-
   return (
     <div className="product-card p-4">
       {/* Image Section */}
@@ -43,11 +44,11 @@ const ProductCard = ({ product }) => {
           alt={product.name}
           className="max-h-full w-auto object-contain"
         />
-        {product.isOnSale && (
-          <span className="absolute top-2 left-2 bg-red-500 text-white text-xs font-bold px-2 py-1 rounded">
-            Sale
-          </span>
-        )}
+       {!product.inStock && (
+  <span className="absolute top-2 right-2 bg-red-500 text-white text-xs font-bold px-2 py-1 rounded">
+    Out of Stock
+  </span>
+)}
       </NavLink>
 
       {/* Product Details */}
@@ -63,11 +64,6 @@ const ProductCard = ({ product }) => {
             ? `£${product.range[0].minprice} - £${product.range[0].maxprice}`
             : `£${product.price}`}
         </p>
-        {product.oldPrice && (
-          <p className="text-xs text-gray-500 line-through">
-            £{product.oldPrice}
-          </p>
-        )}
         <Link
           to={`/product/${product.id}`}
           className="block mt-2 text-sm text-customBlue hover:underline"
@@ -78,13 +74,16 @@ const ProductCard = ({ product }) => {
 
       {/* Action Buttons */}
       <div className="mt-4">
-        <button
-          className="w-full px-3 py-2 bg-customSeaGreen text-white text-sm font-medium rounded hover:bg-customBlue transition-colors"
-          onClick={handleAddToCart}
-        >
-          Add to Cart
-        </button>
-      </div>
+  <button
+    className={`w-full px-3 py-2 ${
+      product.inStock ? "bg-customSeaGreen hover:bg-customBlue" : "bg-gray-400 cursor-not-allowed"
+    } text-white text-sm font-medium rounded transition-colors`}
+    onClick={product.inStock ? handleAddToCart : null}
+    disabled={!product.inStock}
+  >
+    {product.inStock ? "Add to Cart" : "Out of Stock"}
+  </button>
+</div>
 
       {/* Popup Modal */}
       {isModalOpen && (

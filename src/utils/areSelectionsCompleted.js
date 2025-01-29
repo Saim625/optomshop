@@ -1,5 +1,5 @@
 export const areSelectionsComplete = (product, userSelections) => {
-  const selectionKeys = ["variants", "ishiharaVariants", "pdVariants"];
+  const selectionKeys = ["variants", "ishiharaVariants", "pdVariants", "options"];
   
   // Check if each key exists and is properly selected
   for (let key of selectionKeys) {

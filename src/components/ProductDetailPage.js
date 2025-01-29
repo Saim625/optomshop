@@ -1,5 +1,5 @@
 import React, { useContext, useState } from "react";
-import { useParams, Link } from "react-router-dom";
+import { useParams } from "react-router-dom";
 import { PRODUCTS1 } from "../utils/productdata";
 import AddOns from "./detail_page/AddOns";
 import FormOrderLink from "./detail_page/FormOrderLink";
@@ -95,13 +95,11 @@ const ProductDetailPage = () => {
               Product Code: {product.productCode}
             </p>
           )}
-          {product.inStock && (
-            <p
-              className={`mb-2 text-sm md:text-base ${
-                product.inStock ? "text-green-600" : "text-red-600"
-              }`}
-            >
-              {product.inStock ? "In Stock" : "Out of Stock"}
+          {product.inStock ? (
+            <p className="mb-2 text-sm md:text-base text-green-600">In Stock</p>
+          ) : (
+            <p className="mb-2 text-sm md:text-base text-red-600">
+              Out of Stock
             </p>
           )}
           <p className="text-lg md:text-xl text-customSeaGreen font-semibold mb-4">
@@ -128,12 +126,20 @@ const ProductDetailPage = () => {
               }
             />
           )}
-          {product.options && <PurchaseOptions options={product.options} />}
+          {product.options && (
+            <PurchaseOptions
+              variants={product.options}
+              selectedValue={userSelections.options || null} 
+              onSelectionChange={(value) =>
+                handleSelectionChange("options", value)
+              }
+            />
+          )}
           {product.ishiharaVariants && (
             <IshiharaVarients
               variants={product.ishiharaVariants}
               selectedValue={userSelections.ishiharaVariants || ""}
-              onSelectionChange={(value) => 
+              onSelectionChange={(value) =>
                 handleSelectionChange("ishiharaVariants", value)
               }
             />
@@ -147,10 +153,15 @@ const ProductDetailPage = () => {
               }
             />
           )}
-            {product.addOns && <AddOns addOns={product.addOns} onSelectionChange={(value) =>
+          {product.addOns && (
+            <AddOns
+              addOns={product.addOns}
+              onSelectionChange={(value) =>
                 handleSelectionChange("addOns", value)
-              }  />}
-      {/* Description Section */}
+              }
+            />
+          )}
+          {/* Description Section */}
           {error && <p className="mb-2 text-sm text-red-500">{error}</p>}
 
           {/* Add to Cart Button */}
@@ -161,13 +172,17 @@ const ProductDetailPage = () => {
             />
           ) : (
             <button
-              className="w-full md:w-48 px-4 py-2 bg-customSeaGreen text-white rounded-lg hover:bg-customBlue transition-colors mb-3"
-              onClick={handleAddToCart}
+              className={`w-full md:w-48 px-4 py-2 ${
+                product.inStock
+                  ? "bg-customSeaGreen hover:bg-customBlue"
+                  : "bg-gray-400 cursor-not-allowed"
+              } text-white rounded-lg transition-colors mb-3`}
+              onClick={product.inStock ? handleAddToCart : null}
+              disabled={!product.inStock}
             >
-              Add to Cart
+              {product.inStock ? "Add to Cart" : "Out of Stock"}
             </button>
           )}
-
           <p className="text-sm md:text-base text-gray-700">
             Delivery Time:{" "}
             <span className="font-semibold">{product.deliveryTime}</span>
@@ -176,7 +191,7 @@ const ProductDetailPage = () => {
       </div>
 
       {product.description && (
-        <ProductDescription description={product.description}/>
+        <ProductDescription description={product.description} />
       )}
       {product.specifications && (
         <ProductSpecificationList specifications={product.specifications} />

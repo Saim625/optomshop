@@ -9,7 +9,7 @@ const CartPage = () => {
     useContext(CartContext);
 
     const checkoutItems = cartItems.map((item) => {
-      const { variants, pdVariants, ishiharaVariants, purchaseOptions, addOns } = item.userSelections || {}; // Destructure user selections
+      const { variants, pdVariants, ishiharaVariants, purchaseOptions, options, addOns } = item.userSelections || {}; // Destructure user selections
     
       // Default description and price
       let description = variants ? `Variant: ${variants}` : "";
@@ -25,6 +25,9 @@ const CartPage = () => {
       } else if (purchaseOptions) {
         description = `Option: ${purchaseOptions.label || "N/A"}`;
         price = purchaseOptions.price || price;
+      } else if (options) {
+        description = `type: ${options.type || "N/A"}`;
+        price = options.price || price;
       } else if (addOns && addOns.length > 0) {
         description += "\nAdd-Ons: ";
         addOns.forEach((addOn, index) => {
