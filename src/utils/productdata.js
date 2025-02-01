@@ -1,39 +1,3 @@
-import autolensgroover from "../productImages/Auto_lens_Groover-removebg-preview.png"
-import frameheater from "../productImages/frame_heater-removebg-preview.png"
-import rimlessdrill from "../productImages/Rimless_Drill_LARGE-removebg-preview.png"
-import focimeter_manual_lensmeter from "../productImages/focimeter_manual_lensmeter-removebg-preview.png"
-import lens_thickness_gauge from "../productImages/lens_thickness_gauge-removebg-preview.png"
-import optical_lens_measure_clock from "../productImages/optical_lens_measure_clock-removebg-preview.png"
-import confirmation_flipper_twirl from "../productImages/confirmation_flipper_twirl.png"
-import  lens_twirl_small from "../productImages/2lens_twirl_small.gif"
-import  retinoscopy_rack_set from "../productImages/retinoscopy-rack-set-removebg-preview.png"
-import  retinoscopy_rack_colour from "../productImages/retinoscopy_rack_colour.png"
-import  retinoscopy_model_eye from "../productImages/Retinoscopy-Model-Eye.png"
-import  cross_cylinder_xcyl_025 from "../productImages/cross_cylinder_xcyl_025-removebg-preview.png"
-import  cross_cylinder_set_two_optometry from "../productImages/cross_cylinder_set_two_optometry.png"
-import  cross_cylinder_set_four_optometry from "../productImages/cross_cylinder_set_four_optometry.png"
-import  universal_trial_frame from "../productImages/universal_trial_frame-removebg-preview.png"
-import  professional_trial_frame from "../productImages/professional_trial_frame-removebg-preview.png"
-import  trial_frame_kids from "../productImages/trial_frame_kids.jpg"
-import  trial_frame_baby_COMO from "../productImages/trial_frame_baby_COMO.gif"
-import  skeoch_medik_trial_frame from "../productImages/skeoch_medik_trial_frame.png"
-import  Oculus_Type_Trial_Frame from "../productImages/Oculus-Type-Trial-Frame.png"
-import  trial_lens_set_CIOM from "../productImages/trial_lens_set_CIOM-removebg-preview.png"
-import  trial_lens_set_158case from "../productImages/trial_lens_set_158case.jpg"
-import  Deluxe from "../productImages/266Deluxe.gif"
-import  phoropter_small from "../productImages/phoropter_large.JPG"
-import  slit_lamp_5F1 from "../productImages/slit_lamp_5F1.jpg"
-import  dioptrePRISM from "../productImages/20dioptrePRISM.jpg"
-import  trial_lens_clip from "../productImages/trial-lens-clip.jpg"
-import  ishihara_colour_test from "../productImages/ishihara-colour-test.jpg"
-import  frosted_occluder from "../productImages/frosted-occluder.jpg"
-import  TVmag from "../productImages/TVmag.jpg"
-import  PDmeter_pupilometer from "../productImages/PDmeter_pupilometer-removebg-preview.png"
-import  Digital_pupilometer_pdmeter from "../productImages/digital-pupilometer-pdmeter.jpg"
-import  tno_book_glasses from "../productImages/tno-book-glasses.jpg"
-import  Stereo_Fly_Test from "../productImages/Stereo_Fly_Test.jpg"
-import  trial_lenses_glass from "../productImages/trial-lenses-glass.jpg"
-import  plastic_rim_trial_lenses from "../productImages/plastic-rim-trial-lenses.jpg"
 
 export const RefractionProducts= [
     {
@@ -46,7 +10,7 @@ export const RefractionProducts= [
             "4 glass lenses mounted in a metal frame, ±0.50DS power.",
             "Adjustable PD: 40 to 70mm (mm scale shown)"
         ],
-        imageURL: process.env.PUBLIC_URL +  confirmation_flipper_twirl,
+        imageURL:process.env.PUBLIC_URL + "/productImages/confirmation_flipper_twirl.png",
         inStock: true,
         deliveryTime: "Delivery within 2-5 working days."
 
@@ -69,7 +33,7 @@ export const RefractionProducts= [
         description: [
            " 2 glass lenses mounted in a metal frame, with either ± 0.25 or ±0.50DS powers."
         ],
-        imageURL: process.env.PUBLIC_URL +  lens_twirl_small,
+        imageURL:process.env.PUBLIC_URL + "/productImages/2lens_twirl_small.gif",
         inStock: true,
         deliveryTime: "Delivery within 2-5 working days."
     },{
@@ -86,7 +50,7 @@ export const RefractionProducts= [
             "Compact set of two",
             "Comes with protective folding case.",
         ],
-        imageURL: process.env.PUBLIC_URL +  retinoscopy_rack_set,
+        imageURL:process.env.PUBLIC_URL + "/productImages/retinoscopy-rack-set-removebg-preview.png",
         inStock: true,
         deliveryTime: 'Delivery within 3 to 5 days.'
     },{
@@ -98,7 +62,7 @@ export const RefractionProducts= [
             "Sphere: 15 lenses altogether (5 in each bar), 3 bars for each of concave (-) and convex (+)",
             "0.50, 1.00, 1.50, 2.00, 2.50, 3.00, 3.50, 4.00, 4.50, 5.00, 6.00, 7.00, 8.00, 9.00, 10.00"
         ],
-        imageURL: process.env.PUBLIC_URL +  retinoscopy_rack_colour,
+        imageURL:process.env.PUBLIC_URL + "/productImages/retinoscopy_rack_colour.png",
         inStock: true,
         deliveryTime: "Delivery within 3 to 5 days."
     },{
@@ -115,7 +79,7 @@ export const RefractionProducts= [
             "Material: Plastic head with a solid metallic base",
             "Size: ~130x80x80mm",
         ],
-        imageURL: process.env.PUBLIC_URL +  retinoscopy_model_eye,
+        imageURL:process.env.PUBLIC_URL + "/productImages/Retinoscopy-Model-Eye.png",
         inStock: true,
         deliveryTime: "Delivery 2-5 weeks"
     },{
@@ -146,7 +110,7 @@ export const RefractionProducts= [
                 inStock: true
             },
         ],
-        imageURL: process.env.PUBLIC_URL +  cross_cylinder_xcyl_025,
+        imageURL:process.env.PUBLIC_URL + "/productImages/cross_cylinder_xcyl_025-removebg-preview.png",
         deliveryTime: "Delivery within 2-5 working days.",
     },{
         id: 13,
@@ -158,7 +122,7 @@ export const RefractionProducts= [
             "Marked with red (minus) & black (plus) and relevant power.",
             "Comes in packaged case."
         ],
-        imageURL: process.env.PUBLIC_URL +  cross_cylinder_set_two_optometry,
+        imageURL:process.env.PUBLIC_URL + "/productImages/cross_cylinder_set_two_optometry.png",
         inStock: true,
         deliveryTime: "Delivery within 2-5 days."
     },{
@@ -172,7 +136,7 @@ export const RefractionProducts= [
             "Comes in packaged wooden case"
             ],
         specialInfo: 'Supplied in two cases.',    
-        imageURL: process.env.PUBLIC_URL +  cross_cylinder_set_four_optometry,
+        imageURL:process.env.PUBLIC_URL + "/productImages/cross_cylinder_set_four_optometry.png",
         inStock: false,
         deliveryTime: 'Delivery within 2-5 months.'
     },{ 
@@ -188,7 +152,7 @@ export const RefractionProducts= [
             "Wide range of PD adjustment: from 48mm - 80mm",
             "Budget frame ideal for students"
         ],
-        imageURL: process.env.PUBLIC_URL +  universal_trial_frame,
+        imageURL:process.env.PUBLIC_URL + "/productImages/universal_trial_frame-removebg-preview.png",
         inStock: true,
         deliveryTime: 'Delivery within 3-5 days.'
     },{ 
@@ -206,7 +170,7 @@ export const RefractionProducts= [
             "Suitable for professionals",
             "Comes in packaged case."
         ],
-        imageURL: process.env.PUBLIC_URL +  professional_trial_frame,
+        imageURL:process.env.PUBLIC_URL + "/productImages/professional_trial_frame-removebg-preview.png",
         inStock: true,
         deliveryTime: "Delivery within 2-5 working days."
     },{ 
@@ -275,7 +239,7 @@ export const RefractionProducts= [
                 inStock: true
             },
         ],
-        imageURL: process.env.PUBLIC_URL +  trial_frame_kids,
+        imageURL:process.env.PUBLIC_URL + "/productImages/trial_frame_kids.jpg",
         inStock: true,
         deliveryTime: "Delivery within 2 to 5 working days.",
     },{ 
@@ -289,7 +253,7 @@ export const RefractionProducts= [
             "The lens holder rings use standard 38 mm trial lens",
             "Comes with case"
         ],
-        imageURL: process.env.PUBLIC_URL +  trial_frame_baby_COMO,
+        imageURL:process.env.PUBLIC_URL + "/productImages/trial_frame_baby_COMO.gif",
         inStock: true,
         deliveryTime: 'Delivery within 2-5 working days.'
     },{ 
@@ -306,7 +270,7 @@ export const RefractionProducts= [
             "PD adjustable using sliding bridge mechanism (~50-78mm)",
             "Lightweight: less than 50g"
         ],
-        imageURL: process.env.PUBLIC_URL +  skeoch_medik_trial_frame,
+        imageURL:process.env.PUBLIC_URL + "/productImages/skeoch_medik_trial_frame.png",
         inStock: true,
         deliveryTime: 'Delivery within 2 to 5 working days.'
     },{ 
@@ -324,7 +288,7 @@ export const RefractionProducts= [
             "Weighs ~61g",
             "Comes in packaged case."
         ],
-        imageURL: process.env.PUBLIC_URL +  Oculus_Type_Trial_Frame,
+        imageURL:process.env.PUBLIC_URL + "/productImages/Oculus-Type-Trial-Frame.png",
         inStock: true,
         deliveryTime: 'Delivery within 2 to 5 working days'
     },{ 
@@ -360,7 +324,7 @@ export const RefractionProducts= [
             },
         ],
         inStock: true,
-        imageURL: process.env.PUBLIC_URL +  trial_lens_set_CIOM,
+        imageURL:process.env.PUBLIC_URL + "/productImages/trial_lens_set_CIOM-removebg-preview.png",
         deliveryTime: "Delivery within 2 to 5 working days"
     },{ 
         id: 22,
@@ -379,7 +343,7 @@ export const RefractionProducts= [
             "Cylinders: ± 0.25 to 4 (in 0.25 steps), 4.50 to 6.00 (in 0.50 steps)",
             "This trial lens set is of a high quality. Dimensions in cm: 60(L)x(37(W)x10(D)",
         ],
-        imageURL: process.env.PUBLIC_URL +  trial_lens_set_158case,
+        imageURL:process.env.PUBLIC_URL + "/productImages/trial_lens_set_158case.jpg",
         inStock: true,
         deliveryTime: "Delivery within 2-5 working days.",
     },{ 
@@ -400,7 +364,7 @@ export const RefractionProducts= [
             "This trial lens set is of a very high quality.",
             "Dimensions in cm: 60(L)x37(W)x11(D)"
         ],
-        imageURL: process.env.PUBLIC_URL +  Deluxe,
+        imageURL:process.env.PUBLIC_URL + "/productImages/266Deluxe.gif",
         inStock: false,
         deliveryTime: 'Delivery within 2-5 working days.'
     },{ 
@@ -414,7 +378,7 @@ export const RefractionProducts= [
             "Quality glass lenses",
             "Most powers available"
         ],
-        imageURL: process.env.PUBLIC_URL +  trial_lenses_glass,
+        imageURL:process.env.PUBLIC_URL + "/productImages/trial-lenses-glass.jpg",
         inStock: true,
         deliveryTime: 'Delivery within 2-5 working days.'
     },{ 
@@ -428,7 +392,7 @@ export const RefractionProducts= [
             "See trial lens set section for power ranges available",
             "Black (+) and  Red (-)"
         ],
-        imageURL: process.env.PUBLIC_URL +  plastic_rim_trial_lenses,
+        imageURL:process.env.PUBLIC_URL + "/productImages/plastic-rim-trial-lenses.jpg",
         inStock: true,
         deliveryTime: 'Delivery within 2-5 working days.'
     },
@@ -476,7 +440,7 @@ export const TestRoomProducts = [
                 price: 295,
             }
         ],
-        imageURL: process.env.PUBLIC_URL +  phoropter_small,
+        imageURL:process.env.PUBLIC_URL + "/productImages/phoropter_large.JPG",
         inStock: true,
         deliveryTime: "Delivery within 3 to 5 working days."
     },{
@@ -508,7 +472,7 @@ export const TestRoomProducts = [
             instructions: 'See Order Form for ordering instructions (payment by cheque/BACS only)',
             orderFormLink: '/docs/OrderForm.pdf' 
         },
-        imageURL: process.env.PUBLIC_URL +  slit_lamp_5F1,
+        imageURL:process.env.PUBLIC_URL + "/productImages/slit_lamp_5F1.jpg",
         inStock: true,
         deliveryTime: "Delivery in 5-7 days."
     },
@@ -534,7 +498,7 @@ export const LaboratoryProducts = [
             "Lens diameter: 18 to 70mm",
             "Power: 90w"
         ],
-        imageURL: process.env.PUBLIC_URL +  autolensgroover,
+        imageURL:process.env.PUBLIC_URL + "/productImages/Auto_lens_Groover-removebg-preview.png",
         inStock: true,
         deliveryTime: "Delivery within 3-5 days"
     },{
@@ -546,7 +510,7 @@ export const LaboratoryProducts = [
             "Easy to use. Simple design.",
             "Optional hot or cold air output"
         ],
-        imageURL: process.env.PUBLIC_URL +  frameheater,
+        imageURL:process.env.PUBLIC_URL + "/productImages/frame_heater-removebg-preview.png",
         inStock: true,
         deliveryTime: "Delivery 2-5 working days."
     },{
@@ -564,7 +528,7 @@ export const LaboratoryProducts = [
                 "Comes with full instructions.",
                 "Weight: 4.1 kg"
         ],
-        imageURL: process.env.PUBLIC_URL +  rimlessdrill,
+        imageURL:process.env.PUBLIC_URL + "/productImages/Rimless_Drill_LARGE-removebg-preview.png",
         inStock: true,
         deliveryTime: "Delivery within 3 to 5 working days."
     },{
@@ -586,7 +550,7 @@ export const LaboratoryProducts = [
             "Lamp: LED (comes with spare)",
             "1 year warranty"
         ],
-        imageURL: process.env.PUBLIC_URL +  focimeter_manual_lensmeter,
+        imageURL:process.env.PUBLIC_URL + "/productImages/focimeter_manual_lensmeter-removebg-preview.png",
         inStock: true,
         deliveryTime: "Delivery in 3-5 working days"
     },{
@@ -601,7 +565,7 @@ export const LaboratoryProducts = [
             "With hardened ball smooth tips.",
             "Comes with protective case."
         ],
-        imageURL: process.env.PUBLIC_URL +  lens_thickness_gauge,
+        imageURL:process.env.PUBLIC_URL + "/productImages/lens_thickness_gauge-removebg-preview.png",
         inStock: true,
         deliveryTime: "Delivery within 2-5 working days."
     },{
@@ -616,7 +580,7 @@ export const LaboratoryProducts = [
             "Plus and minus measuring in 0.25 steps up to 20D.",
             "With protective cover for measuring tips and storage box."
         ],
-        imageURL: process.env.PUBLIC_URL +  optical_lens_measure_clock,
+        imageURL:process.env.PUBLIC_URL + "/productImages/optical_lens_measure_clock-removebg-preview.png",
         inStock: true,
         deliveryTime: "Delivery within 2 to 5 working days."
     },
@@ -634,7 +598,7 @@ export const  MiscellaneousProducts = [
             "If the child is not cooperative enough to conduct other tests, a 20 dioptre base-out prism is put in front of one eye while shining a penlight (or even using a captivating fixation target). If the eyes adjust to the prism and the corneal reflexes become straight, fusion is present which proves the existence of binocular vision.",
             "Extremely useful for any optometrist / ophthalmologist / orthoptist.",
         ],
-        imageURL: process.env.PUBLIC_URL +  dioptrePRISM,
+        imageURL:process.env.PUBLIC_URL + "/productImages/20dioptrePRISM.jpg",
         inStock: true,
         deliveryTime: ' Delivery in 2 to 5 working days.'
     },{
@@ -647,7 +611,7 @@ export const  MiscellaneousProducts = [
             "Set of two, each with spirit level which improves axis accuracy.",
             "3 lens cells in each clip. Case provided."
         ],
-        imageURL: process.env.PUBLIC_URL +  trial_lens_clip,
+        imageURL:process.env.PUBLIC_URL + "/productImages/trial-lens-clip.jpg",
         inStock: true,
         deliveryTime: 'Delivery in 2 to 4 working days'
     },{
@@ -684,7 +648,7 @@ export const  MiscellaneousProducts = [
                 inStock: true
             }
         ],
-        imageURL: process.env.PUBLIC_URL +  ishihara_colour_test,
+        imageURL:process.env.PUBLIC_URL + "/productImages/ishihara-colour-test.jpg",
         inStock: true,
         deliveryTime: "Delivery 2-5 working days."
     },{
@@ -699,7 +663,7 @@ export const  MiscellaneousProducts = [
             "Longer handle making it easier to use",
             "Considered the best occluder in the business",
         ],
-        imageURL: process.env.PUBLIC_URL +  frosted_occluder,
+        imageURL:process.env.PUBLIC_URL + "/productImages/frosted-occluder.jpg",
         inStock: true,
         deliveryTime: "Delivery within 2-5 working days."
     },{
@@ -729,7 +693,7 @@ export const  MiscellaneousProducts = [
                 vatIncluded: false,
             }
         ],
-        imageURL: process.env.PUBLIC_URL +  TVmag,
+        imageURL:process.env.PUBLIC_URL + "/productImages/TVmag.jpg",
         inStock: true,
         deliveryTime: "Delivery within 2 to 5 working days."
     },{
@@ -746,7 +710,7 @@ export const  MiscellaneousProducts = [
             "Comes with breathe/face shield",
             "Power supply: 6V DC (4x AA batteries)"
         ],
-        imageURL: process.env.PUBLIC_URL +  PDmeter_pupilometer ,
+        imageURL:process.env.PUBLIC_URL + "/productImages/PDmeter_pupilometer-removebg-preview.png" ,
         inStock: true,
         deliveryTime: "Delivery in 2 to 5 working days."
     },{
@@ -764,7 +728,7 @@ export const  MiscellaneousProducts = [
             "Detachable breathe/face shield",
             "Power supply: 4.5V DC (3x AAA batteries)"
         ],
-        imageURL: process.env.PUBLIC_URL +  Digital_pupilometer_pdmeter ,
+        imageURL:process.env.PUBLIC_URL + "/productImages/digital-pupilometer-pdmeter.jpg" ,
         inStock: false,
         deliveryTime: "Delivery in 2 to 5 working days."
     },{
@@ -776,7 +740,7 @@ export const  MiscellaneousProducts = [
             "Popular stereoscopic vision test for children (using red/green stereograms)",
             "Comes with plastic red/green glasses"
         ],
-        imageURL: process.env.PUBLIC_URL +  tno_book_glasses ,
+        imageURL:process.env.PUBLIC_URL + "/productImages/tno-book-glasses.jpg" ,
         inStock: true,
         deliveryTime: " Delivery within 2 to 5 working days."
     },{
@@ -790,7 +754,7 @@ export const  MiscellaneousProducts = [
             "Wider range of measurement from 4800 to 20 seconds.",
             "Comes with 2 polarised glasses, for both young and old children."
         ],
-        imageURL: process.env.PUBLIC_URL +  Stereo_Fly_Test ,
+        imageURL:process.env.PUBLIC_URL + "/productImages/Stereo_Fly_Test.jpg" ,
         inStock: true,
         deliveryTime: "Delivery within 2 to 5 working days."
     },
