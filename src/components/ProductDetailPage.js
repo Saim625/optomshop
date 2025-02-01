@@ -174,7 +174,7 @@ const ProductDetailPage = () => {
             <button
               className={`w-full md:w-48 px-4 py-2 ${
                 product.inStock
-                  ? "bg-customSeaGreen hover:bg-customBlue"
+                  ? "bg-customSeaGreen md:hover:bg-customBlue"
                   : "bg-gray-400 cursor-not-allowed"
               } text-white rounded-lg transition-colors mb-3`}
               onClick={product.inStock ? handleAddToCart : null}

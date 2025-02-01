@@ -82,7 +82,7 @@ const AboutUs = () => {
           <li className="flex">
             <strong>Email:</strong>{" "}
             <img
-              src={process.env.PUBLIC_URL + "email.jpg"}
+              src={process.env.PUBLIC_URL + "/email.jpg"}
               alt="info@optomshop.co.uk"
             />
           </li>

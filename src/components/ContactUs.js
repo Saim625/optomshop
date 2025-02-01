@@ -23,7 +23,7 @@ const ContactUs = () => {
         <div className="flex flex-col items-center">
           <h2 className="text-xl font-semibold mb-2 text-customBlue">Email</h2>
           <img
-            src={process.env.PUBLIC_URL + "email.jpg"}
+            src={process.env.PUBLIC_URL + "/email.jpg"}
             alt="info@optomshop.co.uk"
             className="w-auto h-6"
           />

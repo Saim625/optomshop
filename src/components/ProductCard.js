@@ -76,7 +76,7 @@ const ProductCard = ({ product }) => {
       <div className="mt-4">
   <button
     className={`w-full px-3 py-2 ${
-      product.inStock ? "bg-customSeaGreen hover:bg-customBlue" : "bg-gray-400 cursor-not-allowed"
+      product.inStock ? "bg-customSeaGreen md:hover:bg-customBlue" : "bg-gray-400 cursor-not-allowed"
     } text-white text-sm font-medium rounded transition-colors`}
     onClick={product.inStock ? handleAddToCart : null}
     disabled={!product.inStock}

@@ -18,7 +18,7 @@ const PopupModal = ({ isOpen, title, message, onClose, onGoToDetails }) => {
           </button>
           {onGoToDetails && (
             <button 
-              className="px-4 py-2 bg-customSeaGreen text-white rounded hover:bg-customBlue"
+              className="px-4 py-2 bg-customSeaGreen text-white rounded md:hover:bg-customBlue"
               onClick={onGoToDetails}
             >
               Go to Details

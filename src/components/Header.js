@@ -1,5 +1,5 @@
 import React, { useContext, useEffect, useRef, useState } from "react";
-import { NavLink, useLocation, useNavigate } from "react-router-dom";
+import { Link, NavLink, useLocation, useNavigate } from "react-router-dom";
 import { CartContext } from "../utils/CartContext";
 import { FiChevronDown } from "react-icons/fi";
 import { PRODUCTS } from "../utils/productdata";

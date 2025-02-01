@@ -17,7 +17,7 @@ import ContactUs from './components/ContactUs';
 
 const App = () => {
  return (
-  <BrowserRouter basename="/testwebsite">
+  <BrowserRouter basename={process.env.PUBLIC_URL || ''}>
       <ScrollToTop/>
       <Header/>
       <ToastContainer />
