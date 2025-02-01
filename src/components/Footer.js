@@ -50,7 +50,7 @@ const Footer = () => {
           <div className="flex items-center space-x-3">
             <LucideMail className="w-5 h-5" />
             <img
-            src="footerEmail.png"
+            src={process.env.PUBLIC_URL + "footerEmail.png"}
             alt="info@optomshop.co.uk"
           />
           </div>

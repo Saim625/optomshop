@@ -17,7 +17,7 @@ import ContactUs from './components/ContactUs';
 
 const App = () => {
  return (
-  <BrowserRouter>
+  <BrowserRouter basename="/testwebsite">
       <ScrollToTop/>
       <Header/>
       <ToastContainer />

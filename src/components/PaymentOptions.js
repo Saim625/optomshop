@@ -18,32 +18,32 @@ const PaymentOptions = () => {
             </h2>
             <div className="flex items-center mb-3">
               <img
-                src="/images/cc_visa.gif"
+                src={process.env.PUBLIC_URL + "/images/cc_visa.gif"}
                 alt="Visa"
                 className="w-12 h-8 object-contain"
               />
               <img
-                src="/images/cc_electron.gif"
+                src={process.env.PUBLIC_URL + "/images/cc_electron.gif"}
                 alt="Electron"
                 className="w-12 h-8"
               />
               <img
-                src="/images/cc_delta.gif"
+                src={process.env.PUBLIC_URL + "/images/cc_delta.gif"}
                 alt="Delta"
                 className="w-12 h-8"
               /> 
               <img
-                src="/images/cc_amex.gif"
+                src={process.env.PUBLIC_URL + "/images/cc_amex.gif"}
                 alt="Amex"
                 className="w-12 h-8 object-contain"
               /> 
               <img
-                src="/images/cc_solo.gif"
+                src={process.env.PUBLIC_URL + "/images/cc_solo.gif"}
                 alt="Solo"
                 className="w-12 h-8 "
               /> 
               <img
-                src="/images/cc_maestro_switch.gif"
+                src={process.env.PUBLIC_URL + "/images/cc_maestro_switch.gif"}
                 alt="Maestro_switch"
                 className="w-24 h-8"
               /> 

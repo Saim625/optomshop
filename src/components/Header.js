@@ -7,14 +7,14 @@ import { PRODUCTS } from "../utils/productdata";
 const Header = () => {
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
   const [isCategoryDropdownOpen, setIsCategoryDropdownOpen] = useState(false);
-  const [isMobileCategoryDropdownOpen, setIsMobileCategoryDropdownOpen] = useState(false);
+  const [isMobileCategoryDropdownOpen, setIsMobileCategoryDropdownOpen] =
+    useState(false);
   const [isSearchVisible, setIsSearchVisible] = useState(false);
   const [searchQuery, setSearchQuery] = useState("");
   const [suggestions, setSuggestions] = useState([]);
 
   const navigate = useNavigate();
   const location = useLocation();
-
 
   const allProducts = Object.values(PRODUCTS).flat();
   const { uniqueCartItemCount } = useContext(CartContext);
@@ -26,13 +26,14 @@ const Header = () => {
     if (location.pathname !== "/") {
       // Navigate to the homepage with scrollTo state
       navigate("/", { state: { scrollTo: categoryId } });
-      setIsMobileMenuOpen(false)
+      setIsMobileMenuOpen(false);
     } else {
       // If already on the homepage, trigger scrolling
       const targetElement = document.getElementById(categoryId.toLowerCase());
       if (targetElement) {
         const headerHeight = window.innerWidth <= 768 ? 400 : 74;
-        const elementPosition = targetElement.getBoundingClientRect().top + window.scrollY;
+        const elementPosition =
+          targetElement.getBoundingClientRect().top + window.scrollY;
         const offsetPosition = elementPosition - headerHeight;
 
         window.scrollTo({
@@ -44,8 +45,6 @@ const Header = () => {
       setIsMobileMenuOpen(false); // Close the mobile menu (if applicable)
     }
   };
-  
-  
 
   // Search Logic
   const handleSearchChange = (e) => {
@@ -90,8 +89,14 @@ const Header = () => {
       <div className="container mx-auto px-6 py-4 flex items-center justify-between">
         {/* Logo */}
         <div>
-        <img src="/favicon.jpeg" alt="logo" className="h-16 w-16  object-contain" />       
-         </div>
+          <Link to="/">
+            <img
+              src={process.env.PUBLIC_URL + "/favicon.jpeg"}
+              alt="logo"
+              className="h-16 w-16 object-contain"
+            />
+          </Link>{" "}
+        </div>
 
         {/* Desktop Nav Links */}
         <nav className="hidden lg:flex space-x-10 text-customBlue items-center">
@@ -136,9 +141,7 @@ const Header = () => {
                 </button>
                 <button
                   className="block px-4 py-2 hover:bg-gray-100 w-full text-left"
-                  onClick={() =>
-                    scrollToCategory("miscellaneous-products")
-                  }
+                  onClick={() => scrollToCategory("miscellaneous-products")}
                 >
                   Miscellaneous Products
                 </button>
@@ -151,67 +154,71 @@ const Header = () => {
         <div className="flex items-center space-x-6">
           {/* Search Icon */}
           <div ref={searchRef} className="relative flex">
-      {/* Search Icon */}
-      <button
-        onClick={() => setIsSearchVisible((prev) => !prev)}
-        className="text-customBlue"
-        aria-label="Toggle search bar"
-      >
-        <img
-          src="/images/search_icon.png"
-          alt="Search"
-          className="w-6 h-6"
-        />
-      </button>
-               {/* Search Input */}
-      {isSearchVisible && (
-        <div className="relative">
-          <input
-            ref={inputRef} // Attach ref for focusing
-            type="text"
-            placeholder="Search for products..."
-            value={searchQuery}
-            onChange={handleSearchChange}
-            className="absolute top-10 right-0 text-customBlue bg-white border border-gray-300 rounded-md p-2 shadow-md w-44 xs:w-56 sm:w-72"
-            aria-expanded={isSearchVisible}
-            aria-haspopup="listbox"
-          />
-                {searchQuery && (
-            <div
-              className="absolute top-20 right-0 text-customBlue bg-white border border-gray-300 rounded-md shadow-md mt-1 w-44 xs:w-56 sm:w-72 max-h-56 overflow-auto"
-              role="listbox"
+            {/* Search Icon */}
+            <button
+              onClick={() => setIsSearchVisible((prev) => !prev)}
+              className="text-customBlue"
+              aria-label="Toggle search bar"
             >
-              {suggestions.length > 0 ? (
-                <ul>
-                  {suggestions.map((product) => (
-                    <li
-                      key={product.id}
-                      className="p-2 hover:bg-gray-100 cursor-pointer"
-                      onClick={() => {
-                        navigate(`/product/${product.id}`);
-                        setIsSearchVisible(false);
-                        setSearchQuery("");
-                        setSuggestions([]);
-                      }}
-                      role="option"
-                      aria-selected="false"
-                    >
-                      {product.name}
-                    </li>
-                  ))}
-                </ul>
-              ) : (
-                <p className="p-2 text-gray-500">No result found</p>
-              )}
-            </div>
-               )}
-               </div>
-             )}
+              <img
+                src={process.env.PUBLIC_URL + "/images/search_icon.png"}
+                alt="Search"
+                className="w-6 h-6"
+              />
+            </button>
+            {/* Search Input */}
+            {isSearchVisible && (
+              <div className="relative">
+                <input
+                  ref={inputRef} // Attach ref for focusing
+                  type="text"
+                  placeholder="Search for products..."
+                  value={searchQuery}
+                  onChange={handleSearchChange}
+                  className="absolute top-10 right-0 text-customBlue bg-white border border-gray-300 rounded-md p-2 shadow-md w-44 xs:w-56 sm:w-72"
+                  aria-expanded={isSearchVisible}
+                  aria-haspopup="listbox"
+                />
+                {searchQuery && (
+                  <div
+                    className="absolute top-20 right-0 text-customBlue bg-white border border-gray-300 rounded-md shadow-md mt-1 w-44 xs:w-56 sm:w-72 max-h-56 overflow-auto"
+                    role="listbox"
+                  >
+                    {suggestions.length > 0 ? (
+                      <ul>
+                        {suggestions.map((product) => (
+                          <li
+                            key={product.id}
+                            className="p-2 hover:bg-gray-100 cursor-pointer"
+                            onClick={() => {
+                              navigate(`/product/${product.id}`);
+                              setIsSearchVisible(false);
+                              setSearchQuery("");
+                              setSuggestions([]);
+                            }}
+                            role="option"
+                            aria-selected="false"
+                          >
+                            {product.name}
+                          </li>
+                        ))}
+                      </ul>
+                    ) : (
+                      <p className="p-2 text-gray-500">No result found</p>
+                    )}
+                  </div>
+                )}
+              </div>
+            )}
           </div>
 
           {/* Cart I  con */}
           <NavLink to="/cart" className="relative text-customBlue">
-            <img src="/images/cart.png" alt="Cart" className="w-8 h-8" />
+            <img
+              src={process.env.PUBLIC_URL + "/images/cart.png"}
+              alt="Cart"
+              className="w-8 h-8"
+            />
             {uniqueCartItemCount > 0 && (
               <span className="absolute -top-1 -right-2 bg-red-500 text-white rounded-full px-2 py-0 text-xs font-bold shadow-lg">
                 {uniqueCartItemCount}
@@ -224,7 +231,11 @@ const Header = () => {
             onClick={() => setIsMobileMenuOpen((prev) => !prev)}
             className="lg:hidden hover:text-customBlue"
           >
-            <img src="/images/menu_icon.png" alt="Menu" className="w-6 h-6" />
+            <img
+              src={process.env.PUBLIC_URL + "/images/menu_icon.png"}
+              alt="Menu"
+              className="w-6 h-6"
+            />
           </button>
         </div>
       </div>
