@@ -53,7 +53,7 @@ const WhyChooseUs = () => {
       title: "Multiple Payment Options",
       description: "Pay via credit/debit card, PayPal, or bank transfer.",
       link: "How to Pay?",
-      href: "/payment-options",
+      href: `${process.env.PUBLIC_URL}/payment-options`,
     },
     {
       icon: <IoMdMail />,

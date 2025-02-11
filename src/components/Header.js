@@ -48,18 +48,27 @@ const Header = () => {
 
   // Search Logic
   const handleSearchChange = (e) => {
-    const query = e.target.value.toLowerCase();
+    const query = e.target.value.toLowerCase().trim();
     setSearchQuery(query);
-
+  
     if (query) {
-      const filteredSuggestions = allProducts.filter((product) =>
-        product.name.toLowerCase().includes(query)
+      const prioritizedSuggestions = allProducts.filter((product) =>
+        product.name.toLowerCase().startsWith(query)
       );
-      setSuggestions(filteredSuggestions.length > 0 ? filteredSuggestions : []);
+  
+      const otherSuggestions = allProducts.filter(
+        (product) =>
+          !product.name.toLowerCase().startsWith(query) &&
+          product.name.toLowerCase().includes(query)
+      );
+  
+      const combinedSuggestions = [...prioritizedSuggestions, ...otherSuggestions];
+      setSuggestions(combinedSuggestions.length > 0 ? combinedSuggestions : []);
     } else {
       setSuggestions([]);
     }
   };
+  
 
   // Close search on outside click
   useEffect(() => {
@@ -91,7 +100,7 @@ const Header = () => {
         <div>
           <Link to="/">
             <img
-              src={process.env.PUBLIC_URL + "/favicon.jpeg"}
+              src={process.env.PUBLIC_URL + "/favicon.png"}
               alt="logo"
               className="h-16 w-16 object-contain"
             />

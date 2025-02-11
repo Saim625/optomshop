@@ -1,5 +1,4 @@
 import React, { useEffect } from "react";
-// import emailjs from "emailjs-com";
 
 // PayPalButton component
 const PayPalButton = ({ totalPrice, checkoutItems }) => {
@@ -14,6 +13,7 @@ const PayPalButton = ({ totalPrice, checkoutItems }) => {
               purchase_units: [
                 {
                   amount: {
+                    currency_code: "GBP",
                     value: totalPrice.toFixed(2), // Total order value
                     breakdown: {
                       item_total: {
@@ -26,8 +26,8 @@ const PayPalButton = ({ totalPrice, checkoutItems }) => {
                     id: item.name,
                     name: item.name,
                     unit_amount: {
-                      value: item.price.toFixed(2), // Price per item
                       currency_code: "GBP",
+                      value: item.price.toFixed(2), // Price per item
                     },
                     quantity: item.quantity.toString(),
                     // description: item.description, // Add custom category
@@ -35,109 +35,59 @@ const PayPalButton = ({ totalPrice, checkoutItems }) => {
                   })),
                 },
               ],
+              application_context: {
+                locale: "en-GB", // Sets the language and defaults to UK for country
+              },
             });
           },
-
           onApprove: function (data, actions) {
             return actions.order
-              .capture()
-              .then(function (details) {
-                console.log(details)
-                // Define order details
-                const orderDetails = {
-                  orderId: details.id,
-                  buyerName:
-                    details.name.given_name +
-                    " " +
-                    details.name.surname,
-                  buyerEmail: details.email_address,
-                  items: details.purchase_units[0].items.map((item) => ({
-                    name: item.name,
-                    variant_name: item.sku || "N/A", // Handle variant name if available
-                    quantity: item.quantity,
-                    unit_price: `${item.unit_amount.currency_code} ${item.unit_amount.value}`,
-                    total_price: `${item.unit_amount.currency_code} ${
-                      parseFloat(item.unit_amount.value) *
-                      parseInt(item.quantity, 10)
-                    }`,
-                  })),
-                  address: {
-                    address_line_1:
-                      details.purchase_units[0].shipping.address.address_line_1,
-                    address_line_2:
-                      details.purchase_units[0].shipping.address.address_line_2,
-                    admin_area_1:
-                      details.purchase_units[0].shipping.address.admin_area_1,
-                    admin_area_2:
-                      details.purchase_units[0].shipping.address.admin_area_2,
-                    country_code:
-                      details.purchase_units[0].shipping.address.country_code,
-                    postal_code:
-                      details.purchase_units[0].shipping.address.postal_code,
-                  },
-                  orderDate: new Date(details.create_time).toLocaleString(),
-                  orderTotal: `${details.purchase_units[0].amount.value} ${details.purchase_units[0].amount.currency_code}`,
-                  currencyCode: details.purchase_units[0].amount.currency_code,
-                };
-                // Function to send email
-                // const sendEmail = (recipientEmail, subject, templateId) => {
-                //   emailjs
-                //     .send(
-                //       "service_4wl7p0k", // Replace with your EmailJS service ID
-                //       templateId,
-                //       {
-                //         subject: subject,
-                //         to_email: recipientEmail,
-                //         seller_name: "Optom Shop Team", // Replace with dynamic seller name if available
-                //         order_id: orderDetails.orderId,
-                //         buyer_name: orderDetails.buyerName,
-                //         buyer_email: orderDetails.buyerEmail,
-                //         order_date: orderDetails.orderDate,
-                //         order_total: orderDetails.orderTotal,
-                //         currency_code: orderDetails.currencyCode,
-                //         items: orderDetails.items,
-                //         address_line_1: orderDetails.address.address_line_1,
-                //         address_line_2: orderDetails.address.address_line_2,
-                //         admin_area_1: orderDetails.address.admin_area_1,
-                //         admin_area_2: orderDetails.address.admin_area_2,
-                //         country_code: orderDetails.address.country_code,
-                //         postal_code: orderDetails.address.postal_code,
-                //       },
-                //       "" // Replace with your EmailJS user ID
-                //     )
-                //     .then(
-                //       (response) =>
-                //         console.log("Email sent successfully:", response),
-                //       (error) => console.error("Email sending failed:", error)
-                //     );
-                // };
-
-                // // Send email to the seller
-                // const sellerEmail = ""; // Replace with seller's email
-                // const sellerTemplateId = ""; // Replace with your actual EmailJS seller template ID
-                // sendEmail(sellerEmail, "New Order Received", sellerTemplateId);
-
-                // // Send email to the purchaser orderDetails.buyerEmail
-                // const purchaserEmail = orderDetails.buyerEmail; // Dynamic purchaser's email
-                // const purchaserTemplateId = ""; // Replace with your actual EmailJS purchaser template ID (could be a different template)
-                // sendEmail(
-                //   purchaserEmail,
-                //   "Order Confirmation",
-                //   purchaserTemplateId
-                // );
-
-                alert("Payment completed by " + details.name.given_name);
-
-                // Clear the cart from local storage
-                localStorage.removeItem("cartItems"); // Or your specific key for cart in localStorage
-              })
-              .catch((err) => {
-                console.error("Error capturing payment", err);
-                alert(
-                  "There was an error with the payment. Please try again later."
-                );
-              });
-          },
+                .capture()
+                .then(function (details) {
+                    try {
+                        // Define order details
+                        const orderDetails = {
+                            orderId: details.id,
+                            buyerName: details.payer.name.given_name + " " + details.payer.name.surname,
+                            buyerEmail: details.payer.email_address,
+                            items: details.purchase_units[0].items ? details.purchase_units[0].items.map((item) => ({
+                                name: item.name,
+                                variant_name: item.sku || "N/A", // Handle variant name if available
+                                quantity: item.quantity,
+                                unit_price: `${item.unit_amount.currency_code} ${item.unit_amount.value}`,
+                                total_price: `${item.unit_amount.currency_code} ${
+                                    parseFloat(item.unit_amount.value) * parseInt(item.quantity, 10)
+                                }`,
+                            })) : [],
+                            address: details.purchase_units[0].shipping ? {
+                                address_line_1: details.purchase_units[0].shipping.address.address_line_1 || "N/A",
+                                address_line_2: details.purchase_units[0].shipping.address.address_line_2 || "N/A",
+                                admin_area_1: details.purchase_units[0].shipping.address.admin_area_1 || "N/A",
+                                admin_area_2: details.purchase_units[0].shipping.address.admin_area_2 || "N/A",
+                                country_code: details.purchase_units[0].shipping.address.country_code || "N/A",
+                                postal_code: details.purchase_units[0].shipping.address.postal_code || "N/A",
+                            } : null,
+                            orderDate: new Date(details.create_time).toLocaleString(),
+                            orderTotal: `${details.purchase_units[0].amount.value} ${details.purchase_units[0].amount.currency_code}`,
+                            currencyCode: details.purchase_units[0].amount.currency_code,
+                        };
+                
+                        // Notify user of successful payment
+                        alert("Payment completed by " + details.payer.name.given_name);
+        
+                        // Clear the cart from local storage
+                        localStorage.removeItem("cartItems"); // Ensure this key matches your storage key
+                    } catch (error) {
+                        console.error("Error processing order details:", error);
+                        alert("There was an error processing your order. Please contact support.");
+                    }
+                })
+                .catch((err) => {
+                    console.error("Error capturing payment", err);
+                    alert("There was an error with the payment. Please try again later.");
+                });
+        },
+          
 
           onError: function (err) {
             console.error("PayPal Checkout Error", err);

@@ -312,7 +312,7 @@ export const RefractionProducts= [
         ],
         options: [
             {
-                type: 'individual',
+                type: 'individual lens',
                 price: 10,
                 inStock: true,
             },
@@ -403,7 +403,7 @@ export const TestRoomProducts = [
         id: 26,
         name: 'Manual Phoropter Head',
         productCode: "MPH",
-        price: 795,
+        price: 595,
         description: [
             "Sphere Range: +16.75 to -19.00 D (0.25 D steps)",
             "Cylinder Range: 0.00 to -6.00 D (0.25D steps) (0.00 to -8.00 D with additional -2.00D)",

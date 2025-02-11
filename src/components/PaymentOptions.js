@@ -50,17 +50,10 @@ const PaymentOptions = () => {
               {/* Add more card images as needed */}
             </div>
             <p className="text-gray-700">
-              Order online and pay securely and instantly. Simple.
+              Order online and pay securely and instantly.
             </p>
-            <p className="text-gray-700 mt-2">
-              If having trouble paying online by credit/debit card,{" "}
-              <a
-                href="/images/pay-online.jpg"
-                className="underline text-blue-500 hover:text-blue-700"
-              >
-                click here
-              </a>{" "}
-              or call us.
+            <p className="text-gray-700">
+              Please type postcode in CAPS.
             </p>
           </div>
 
@@ -70,30 +63,6 @@ const PaymentOptions = () => {
             <p className="text-gray-700">
               If you have a PayPal account, you can select to pay by this option
               when ordering online.
-            </p>
-          </div>
-
-          {/* Cheque */}
-          <div>
-            <h2 className="text-xl font-semibold text-gray-800 mb-4">Cheque</h2>
-            <p className="text-gray-700">
-              Payable to <strong>'Optom Shop Limited'</strong> and send with
-              completed order form (
-              <a
-                href="/docs/Word_OrderForm.doc"
-                className="text-blue-500 underline hover:text-blue-700"
-              >
-                Word doc
-              </a>{" "}
-              OR{" "}
-              <a
-                href="/docs/OrderForm.pdf"
-                className="text-blue-500 underline hover:text-blue-700"
-                download
-              >
-                PDF
-              </a>
-              ).
             </p>
           </div>
 

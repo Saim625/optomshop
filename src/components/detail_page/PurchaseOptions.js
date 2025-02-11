@@ -22,7 +22,7 @@ const PurchaseOptions = ({ variants, onSelectionChange, selectedValue }) => {
               className="mr-2"
               disabled={!variant.inStock}
             />
-            {variant.type === "set" ? `Set (${variant.setSize})` : `Individual`}{" "}
+            {variant.type === "set" ? `Set (${variant.setSize})` : `Individual lens`}{" "}
             - £{variant.price}
             <span
               className={`ml-2 ${
@@ -35,7 +35,7 @@ const PurchaseOptions = ({ variants, onSelectionChange, selectedValue }) => {
         ))}
       </div>
 
-      {selectedValue?.type === 'individual' && (
+      {selectedValue?.type === 'individual lens' && (
         <div className="p-2 bg-gray-100 border rounded mt-4">
           <h4 className="font-semibold mb-1">Individual Lens Information:</h4>
           <p className="text-sm text-gray-700">

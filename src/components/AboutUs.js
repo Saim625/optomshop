@@ -37,17 +37,6 @@ const AboutUs = () => {
           test (i.e., play) with all the gadgets to make sure we’re happy with
           them.
         </p>
-        <p className="text-gray-700 leading-relaxed mt-4">
-          We are flexible and happy to offer large order discounts for
-          individuals, groups, companies, and students.{" "}
-          <a
-            href="/student-discount"
-            className="text-blue-500 underline font-medium"
-          >
-            Click Here
-          </a>
-          .
-        </p>
       </section>
 
       {/* Sustainability and Giving Back */}
